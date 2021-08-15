@@ -1,0 +1,41 @@
+configuration {
+	modi: "window,run,ssh,calc,file-browser";
+	combi-modi: "window,run";
+	width: 80;
+	lines: 20;
+	columns: 2;
+	color-enabled: true;
+	show-icons: true;
+	terminal: "konsole";
+	ssh-client: "ssh";
+/*	run-command: "{terminal} {cmd}";*/
+	run-shell-command: "{terminal} -e {cmd}";
+	window-command: "wmctrl -i -R {window}";
+	window-match-fields: "all";
+/*	icon-theme: ;*/
+	drun-match-fields: "all";
+	drun-show-actions: true;
+	drun-display-format: "<span size='medium'>{name}</span>[<span weight='light' size='medium'><i>({categories})</i></span>]";
+/*	drun-url-launcher: "xdg-open";*/
+/*	disable-history: false;*/
+	sort: true;
+	sidebar-mode: true;
+	parse-hosts: true;
+	parse-known-hosts: true;
+	separator-style: "dash";
+	fake-transparency: true;
+/*	scrollbar-width: 20;*/
+	scroll-method: 2;
+	window-format: "{w} {n} {t}";
+	theme: "/usr/share/rofi/themes/glue_pro_blue.rasi";
+	color-normal: #0088ff;
+	color-urgent: #ff0000;
+	color-active: #18ff2b;
+/*	color-window: ;*/
+	window-thumbnail: true;
+	drun-use-desktop-cache: true;
+	drun-reload-desktop-cache: true;
+	display-keys: true;
+	m: "-10";
+	separator-style: "solid";
+}
