@@ -1,5 +1,5 @@
-My personal i3, polybar and rofi dotfiles and shell scripts
+My personal i3, polybar and rofi dotfiles and shell scripts for dunst notifications
 
-To setup this dotfile for your machine just run the below commands
-chmod a+x wm_setup.sh
-./wm_setup.sh
+<h2>idotfiles setup</h2><br>
+chmod a+x wm_setup.sh<br>
+./wm_setup.sh<br>
