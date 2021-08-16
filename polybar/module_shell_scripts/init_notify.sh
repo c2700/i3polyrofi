@@ -16,7 +16,7 @@ wifi_check(){
 			2) 
 				network_profile="$(nmcli device | grep -i " connected" | grep -i "wifi" | awk '{ $1=$2=$3=NULL; sub("^\\s+","");print $0 }')"
 				ssid="$(nmcli device wifi list | grep -i "^\*" | awk '{ $1=$2=NULL;sub("^\\s*",""); print $0}' | sed 's/Infra.*//g')"
-				notify-send -c "init_network_state" " Wi-Fi connected to LAN. WAN connectivity not available " " ssid - $ssid\n network_profile - $network_profile " ;;
+				notify-send -c "init_network_state" " Wi-Fi connected to LAN. Not connected to WAN " " ssid - $ssid\n network profile - $network_profile " ;;
 		esac
 	fi
 	clear
@@ -36,8 +36,9 @@ eth_check(){
 		case $? in
 			0) notify-send -u low -c "init_network_state" " Ethernet connected to WAN " ;;
 			1|2)
-				ssid="$(nmcli device status | grep -i "ethernet" | awk '{ $1=$2=$3=NULL; sub("^\\s*","");print $0}')"
-				notify-send -c "init_network_state" " Ethernet connected to LAN. WAN connectivity not available " " ssid - $ssid\n " 
+				connection_profile="$(nmcli device status | grep -i "ethernet" | awk '{ $1=$2=$3=NULL; sub("^\\s*","");print $0}')"
+				# ssid="$(nmcli device status | grep -i "ethernet" | awk '{ $1=$2=$3=NULL; sub("^\\s*","");print $0}')"
+				notify-send -c "init_network_state" " Ethernet connected to LAN. Not connected to WAN " " connection profile - $connection_profile\n " 
 				;;
 		esac
 	fi
