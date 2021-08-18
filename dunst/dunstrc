@@ -1,0 +1,64 @@
+[global]
+	font = Monospace 15
+	follow = mouse
+	indicate_hidden = yes
+	# show_age_threshold = 10
+    word_wrap = yes
+	dmenu = rofi -config "/home/blank/.config/rofi/rofi_config.rasi" -show drun
+	corner_radius = 10
+	geometry = "0x0-8+40"
+	layer = top
+	transparency = 20
+	separator_height = 6
+	padding = 10
+	separator_color = white
+	frame_width = 5
+	format = "%s\n%b"
+	sort = yes
+
+[shortcuts]
+	close = ctrl+space
+	close_all = ctrl+shift+space
+	context = ctrl+shift+period
+
+[urgency_low]
+    background = "#55ff00"
+    foreground = "#4c4c4c"
+    timeout = 7
+
+[urgency_normal]
+    background = "#dddd00"
+    foreground = "#000000"
+    timeout = 7
+
+[urgency_critical]
+    background = "#b50000"
+    foreground = "#7d7d7d"
+    timeout = 15
+
+[Eth]
+	appname = none
+	summary = Ethernet
+	# urgency = low
+	history_ignore = yes
+	format = strip
+
+[wireless_lan]
+	appname = wlan
+	summary = Wi-Fi
+	# urgency = low
+	history_ignore = yes
+
+[init_network_state]
+	appname = init_net_state
+	summary = Wi-Fi
+	# urgency = low
+	history_ignore = yes
+	format = " %b lol"
+	show_age_threshold = 5
+	script = /home/blank/.config/polybar/module_shell_scripts/network_info/init_network_state.sh
+
+# [disks_info]
+# 	script=/home/blank/.config/polybar/module_shell_scripts/disks_info.sh
+# 	geometry = "-0x-0+8-40"
+
