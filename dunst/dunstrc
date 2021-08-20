@@ -2,7 +2,6 @@
 	font = Monospace 15
 	follow = mouse
 	indicate_hidden = yes
-	# show_age_threshold = 10
     word_wrap = yes
 	dmenu = rofi -config "/home/blank/.config/rofi/rofi_config.rasi" -show drun
 	corner_radius = 10
@@ -39,26 +38,19 @@
 [Eth]
 	appname = none
 	summary = Ethernet
-	# urgency = low
 	history_ignore = yes
 	format = strip
 
 [wireless_lan]
 	appname = wlan
 	summary = Wi-Fi
-	# urgency = low
 	history_ignore = yes
 
 [init_network_state]
 	appname = init_net_state
 	summary = Wi-Fi
-	# urgency = low
 	history_ignore = yes
 	format = " %b lol"
 	show_age_threshold = 5
 	script = /home/blank/.config/polybar/module_shell_scripts/network_info/init_network_state.sh
-
-# [disks_info]
-# 	script=/home/blank/.config/polybar/module_shell_scripts/disks_info.sh
-# 	geometry = "-0x-0+8-40"
 

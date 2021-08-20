@@ -22,8 +22,10 @@ then
 
 elif [[ $DESKTOP_SESSION == "i3" ]]
 then
-	echo "installing dunst rofi, rofi-calc and rofi-file-browser-extended-git"
+	echo "Need to install bs4 (python module), NerdFonts, dunst rofi, rofi-calc and rofi-file-browser-extended-git"
+	echo "Installing dunst, rofi, rofi-calc"
 	sudo pacman -Syvd --noconfirm dunst rofi rofi-calc
+	echo "Installing rofi-file-browser-extended"
 	git clone https://github.com/marvinkreis/rofi-file-browser-extended
 	cd rofi-file-browser-extended
 	makepkg -i
@@ -31,7 +33,18 @@ then
 	# makepkg -sd
 	# sudo pacman -Uvd --noconfirm *rofi-file-browser*.pkg.tar.*
 	cd ..
-	
+	echo "Downloading bs4"
+	wget -cdv $(curl https://pypi.org/project/bs4/#files | grep -i pythonhosted | sed 's/\s*<a href="//g;s/">//g')
+	echo "Installing bs4"
+	pip install "$(ls bs4-*)"
+	echo "Downloading NerdFonts"
+	python3 extract_nerdfonts.py
+	cd NerdFonts
+	wget -cdvi nerd_fonts_v2.1.0.txt
+	rm -rfv nerd_fonts_v2.1.0.txt
+	echo "Installing NerdFonts"
+	# copy nerdfonts files to relevant directories
+
 	terms=($(pqqs "terminal emulator" | grep -iv "lib"))
 	if [[ ${#terms[@]} -eq 0 ]]
 	then
@@ -66,7 +79,7 @@ then
 	wifi_iface=("$(nmcli device | grep -i "wifi" | grep -iv "p2p" | awk '{ print $1 }')")
 	if [[ ${#wifi_iface[@]} -eq 1 ]]
 	then
-		cat polybar/main_config | sed '270s/interface = /interface = ${wifi_iface[0]}/g'
+		cat polybar/config | sed '270s/interface = /interface = ${wifi_iface[0]}/g'
 		echo "Wi-Fi card set to ${wifi_iface[0]}"
 		unset wifi_iface
 	# loop to select wifi_iface
@@ -81,7 +94,7 @@ then
 		echo ""
 		read -p "select wireless interface: " selected_iface
 		selected_iface=$((selected_iface-1))
-	 	cat polybar/main_config | sed '270s/interface = /interface = ${wifi_iface[$selected_iface]}/g'
+	 	cat polybar/config | sed '270s/interface = /interface = ${wifi_iface[$selected_iface]}/g'
 		echo "Wi-Fi card set to ${wifi_iface[$selected_iface]}"
 		unset a selected_iface wifi_iface
 	fi
@@ -90,7 +103,7 @@ then
 	ether_iface=("$(nmcli device | grep -i "ethernet" | grep -iv "p2p" | awk '{ print $1 }')")
 	if [[ ${#ether_iface[@]} -eq 1 ]]
 	then
-		cat polybar/main_config | sed '282s/interface = /interface = ${ether_iface[0]}/g'
+		cat polybar/config | sed '282s/interface = /interface = ${ether_iface[0]}/g'
 		echo "Ethernet card set to ${ether_iface[0]}"
 		unset ether_iface
 	# set ether_iface iface
@@ -105,19 +118,19 @@ then
 		echo ""
 		read -p "select ethernet interface: " selected_iface
 		selected_iface=$((selected_iface-1))
-		cat polybar/main_config | sed '282s/interface = /interface = ${ether_iface[$selected_iface]}/g'
+		cat polybar/config | sed '282s/interface = /interface = ${ether_iface[$selected_iface]}/g'
 		echo "Ethernet card set to ${ether_iface[$selected_iface]}"
 		unset a selected_iface ether_iface
 	fi
 	
 	cat i3/config | awk '{ sub("home/blank","home/$(whoami)"); print $0 }'
 	cat polybar/launch.sh | awk '{ sub("home/blank","home/$(whoami)"); print $0 }'
-	cat polybar/main_config | awk '{ sub("home/blank","home/$(whoami)"); print $0 }'
+	cat polybar/config | awk '{ sub("home/blank","home/$(whoami)"); print $0 }'
 	cat dunst/dunstrc | awk '{ sub("home/blank","home/$(whoami)"); print $0 }'
 	
 	# sed -i i3/config 's/"home\/blank","home\/$(whoami)")/g'
 	# sed -i polybar/launch.sh 's/"home\/blank","home\/$(whoami)"/g'
-	# sed -i polybar/main_config 's/"home\/blank","home\/$(whoami)"/g'
+	# sed -i polybar/config 's/"home\/blank","home\/$(whoami)"/g'
 	# sed -i dunst/dunstrc 's/"home\/blank","home\/$(whoami)"/g'
 	
 	echo "cp -rfv polybar i3 rofi -t \"/home/$(whoami)/.config\""
