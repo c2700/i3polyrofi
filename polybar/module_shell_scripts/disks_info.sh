@@ -50,15 +50,15 @@ disk_partition_info(){
 	
 		if [[ $mntpt == "" ]] || [[ -z $mntpt ]] || [[ $mntpt =~ " " ]]
 		then
-			disk_part_info_string=" $name - [Total: $size] [Label: $part_label] [Type: $disk_parttypename] [fs: $fstype] "
+			disk_part_info_string=" $name - [T: $size] [L: $part_label] [PT: $disk_parttypename] [FS: $fstype] "
 		elif [[ $mntpt != "" ]] || [[ -n $mntpt ]] || [[ ! $mntpt =~ " " ]]
 		then
-			if [[ $fstype == "SWAP" ]] || [[ $fstype == "\[SWAP\]" ]]
+			if [[ $fstype == "swap" ]]
 			then
-				disk_part_info_string=" $name ($mntpt) - [Total: $size] [Label: $part_label] [Type: $disk_parttypename] [fs: $fstype] "
-			elif [[ $fstype != "\[SWAP\]" ]]
+				disk_part_info_string=" $name ($mntpt) - [T: $size] [L: $part_label] [PT: $disk_parttypename] [FS: $fstype] "
+			elif [[ $fstype != "swap" ]]
 			then
-				disk_part_info_string=" $name ($mntpt) - [Total: $size] [Used: $free_partition_size] [Label: $part_label] [Type: $disk_parttypename] [fs: $fstype] "
+				disk_part_info_string=" $name ($mntpt) - [T: $size] [U: $free_partition_size] [L: $part_label] [PT: $disk_parttypename] [FS: $fstype] "
 			fi
 		fi
 		echo "$disk_part_info_string"
