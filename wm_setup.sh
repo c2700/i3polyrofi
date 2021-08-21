@@ -35,8 +35,8 @@ then
 	cd rofi-file-browser-extended
 	makepkg -i
 	# makepkg -sdi
-	# makepkg -sd
-	# sudo pacman -Uvd --noconfirm *rofi-file-browser*.pkg.tar.*
+	makepkg -sd
+	sudo pacman -Uvd --noconfirm *rofi*file*browser*.pkg.tar.*
 	cd ..
 	echo "Downloading bs4"
 	wget -cdv $(curl https://pypi.org/project/bs4/#files | grep -i pythonhosted | sed 's/\s*<a href="//g;s/">//g')
