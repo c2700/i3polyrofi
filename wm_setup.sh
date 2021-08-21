@@ -22,11 +22,16 @@ then
 
 elif [[ $DESKTOP_SESSION == "i3" ]]
 then
+	echo "copying dunst i3 polybar and rofi config files to /home/$(whoami)/.config"
+	sleep 3
+	cp -rfv dunst i3 polybar rofi "/home/$(whoami)/.config"
 	echo "Need to install bs4 (python module), NerdFonts, dunst rofi, rofi-calc and rofi-file-browser-extended-git"
 	echo "Installing dunst, rofi, rofi-calc"
 	sudo pacman -Syvd --noconfirm dunst rofi rofi-calc
-	echo "Installing rofi-file-browser-extended"
+	echo "Downloading rofi-file-browser-extended"
 	git clone https://github.com/marvinkreis/rofi-file-browser-extended
+	echo "Installing rofi-file-browser-extended"
+	sleep 3
 	cd rofi-file-browser-extended
 	makepkg -i
 	# makepkg -sdi
@@ -51,12 +56,12 @@ then
 		echo "no terminal emulators found. Installing vte3"
 		sudo pacman -Syvd --noconfirm vte3
 		VTE3="$(pacman -Ql vte3 | grep -iv "bin/$" | grep -i "bin" | awk '{ print $2 }')"
-		cat i3/config | sed 's/konsole/$VTE3/g'
-		# sed -i i3/config 's/konsole/$VTE3/g'
+		cat /home/$(whoami)/.config/i3/config | sed 's/konsole/$VTE3/g'
+		# sed -i /home/$(whoami)/.config/i3/config 's/konsole/$VTE3/g'
 	elif [[ ${#terms[@]} -eq 1 ]]
 	then
-		sed -i i3/config 's/konsole/${terms[0]}/g'
-		# cat i3/config | sed 's/konsole/${terms[0]}/g'
+		sed -i /home/$(whoami)/.config/i3/config 's/konsole/${terms[0]}/g'
+		# cat /home/$(whoami)/.config/i3/config | sed 's/konsole/${terms[0]}/g'
 		echo "terminal set to ${terms[0]}"
 	elif [[ ${#terms[@]} -gt 1 ]]
 	then
@@ -69,8 +74,8 @@ then
 		echo ""
 		read -p "select terminal emulator to use: " selected_terminal
 		selected_terminal=$((selected_terminal-1))
-	 	cat i3/config | sed 's/konsole/${terms[$(selected_terminal)]}/g'
-	 	# sed -i i3/config 's/konsole/${terms[$(selected_terminal)]}/g'
+	 	cat /home/$(whoami)/.config/i3/config | sed 's/konsole/${terms[$(selected_terminal)]}/g'
+	 	# sed -i /home/$(whoami)/.config/i3/config 's/konsole/${terms[$(selected_terminal)]}/g'
 		echo "terminal set to ${terms[$(selected_terminal)]}"
 		unset a selected_terminal terms
 	fi
@@ -79,7 +84,7 @@ then
 	wifi_iface=("$(nmcli device | grep -i "wifi" | grep -iv "p2p" | awk '{ print $1 }')")
 	if [[ ${#wifi_iface[@]} -eq 1 ]]
 	then
-		cat polybar/config | sed '270s/interface = /interface = ${wifi_iface[0]}/g'
+		cat /home/$(whoami)/.config/polybar/config | sed '270s/interface = /interface = ${wifi_iface[0]}/g'
 		echo "Wi-Fi card set to ${wifi_iface[0]}"
 		unset wifi_iface
 	# loop to select wifi_iface
@@ -94,7 +99,7 @@ then
 		echo ""
 		read -p "select wireless interface: " selected_iface
 		selected_iface=$((selected_iface-1))
-	 	cat polybar/config | sed '270s/interface = /interface = ${wifi_iface[$selected_iface]}/g'
+	 	cat /home/$(whoami)/.config/polybar/config | sed '270s/interface = /interface = ${wifi_iface[$selected_iface]}/g'
 		echo "Wi-Fi card set to ${wifi_iface[$selected_iface]}"
 		unset a selected_iface wifi_iface
 	fi
@@ -103,7 +108,7 @@ then
 	ether_iface=("$(nmcli device | grep -i "ethernet" | grep -iv "p2p" | awk '{ print $1 }')")
 	if [[ ${#ether_iface[@]} -eq 1 ]]
 	then
-		cat polybar/config | sed '282s/interface = /interface = ${ether_iface[0]}/g'
+		cat /home/$(whoami)/.config/polybar/config | sed '282s/interface = /interface = ${ether_iface[0]}/g'
 		echo "Ethernet card set to ${ether_iface[0]}"
 		unset ether_iface
 	# set ether_iface iface
@@ -118,20 +123,20 @@ then
 		echo ""
 		read -p "select ethernet interface: " selected_iface
 		selected_iface=$((selected_iface-1))
-		cat polybar/config | sed '282s/interface = /interface = ${ether_iface[$selected_iface]}/g'
+		cat /home/$(whoami)/.config/polybar/config | sed '282s/interface = /interface = ${ether_iface[$selected_iface]}/g'
 		echo "Ethernet card set to ${ether_iface[$selected_iface]}"
 		unset a selected_iface ether_iface
 	fi
 	
-	cat i3/config | awk '{ sub("home/blank","home/$(whoami)"); print $0 }'
-	cat polybar/launch.sh | awk '{ sub("home/blank","home/$(whoami)"); print $0 }'
-	cat polybar/config | awk '{ sub("home/blank","home/$(whoami)"); print $0 }'
-	cat dunst/dunstrc | awk '{ sub("home/blank","home/$(whoami)"); print $0 }'
+	cat /home/$(whoami)/.config/i3/config | awk '{ sub("home/blank","home/$(whoami)"); print $0 }'
+	cat /home/$(whoami)/.config/polybar/launch.sh | awk '{ sub("home/blank","home/$(whoami)"); print $0 }'
+	cat /home/$(whoami)/.config/polybar/config | awk '{ sub("home/blank","home/$(whoami)"); print $0 }'
+	cat /home/$(whoami)/.config/dunst/dunstrc | awk '{ sub("home/blank","home/$(whoami)"); print $0 }'
 	
-	# sed -i i3/config 's/"home\/blank","home\/$(whoami)")/g'
-	# sed -i polybar/launch.sh 's/"home\/blank","home\/$(whoami)"/g'
-	# sed -i polybar/config 's/"home\/blank","home\/$(whoami)"/g'
-	# sed -i dunst/dunstrc 's/"home\/blank","home\/$(whoami)"/g'
+	# sed -i /home/$(whoami)/.config/i3/config 's/"home\/blank","home\/$(whoami)")/g'
+	# sed -i /home/$(whoami)/.config/polybar/launch.sh 's/"home\/blank","home\/$(whoami)"/g'
+	# sed -i /home/$(whoami)/.config/polybar/config 's/"home\/blank","home\/$(whoami)"/g'
+	# sed -i /home/$(whoami)/.config/dunst/dunstrc 's/"home\/blank","home\/$(whoami)"/g'
 	
 	echo "cp -rfv polybar i3 rofi -t \"/home/$(whoami)/.config\""
 fi
