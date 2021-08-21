@@ -29,15 +29,15 @@ chmod a+x wm_setup.sh<br>
 	3. super+shift+space - toggle floating window mode<br>
 	4. super+shift+arrow_key - move floating window in set direction<br>
 	5. super+shift+e - exit i3 without prompt (comment line 155, uncomment line 154 if you need the exit prompt)<br>
-	6. ctrl+shift+delete - shutdown machine (i3 keybinding)<br>
-	7. ctrl+alt+delete - reboot machine (i3 keybinding)<br>
+	6. ctrl+shift+delete - shutdown machine without prompt (i3 keybinding)<br>
+	7. ctrl+alt+delete - reboot machine without prompt (i3 keybinding)<br>
 	8. super+shift+o - turns on all screens (script is i3/scripts/screens/turn_on_all_screens.sh)<br>
 	9. super+shift+b - turns off all screens (script is i3/scripts/screens/turn_off_all_screens.sh)<br>
 	10. super+shift+a - turns off only primary screen (script is i3/scripts/screens/turn_off_main_screen.sh)<br>
-	11. super+shift+q - quits focused app<br>
-	12. super+arrow_keys - change window focus<br>
+	11. super+shift+q - quits focused window/app<br>
+	12. super+arrow_keys - change focus to another window/app<br>
 	13. ctrl+alt+f - open rofi in file explorer mode<br>
 	14. super+enter - open terminal emulator<br>
-	15. super+shift+r - restart i3<br>
+	15. super+shift+r - restart i3 (you might need to kill your display manager and login to i3 or restart your machine to restart all "on i3 startup scritps/services" in case what you need to restart doesn't restart with i3)<br>
 	16. ctrl+shift+esc - starts htop in set terminal emulator<br>
 	
