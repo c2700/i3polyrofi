@@ -42,13 +42,16 @@ then
 	wget -cdv $(curl https://pypi.org/project/bs4/#files | grep -i pythonhosted | sed 's/\s*<a href="//g;s/">//g')
 	echo "Installing bs4"
 	pip install "$(ls bs4-*)"
-	echo "Downloading NerdFonts"
+	echo "extracting links to download all nerdfonts files. The file containing the links is in $(PWD)/NerdFonts/nerd_fonts_v2.1.0.txt"
+	sleep 3
 	python3 extract_nerdfonts.py
 	cd NerdFonts
+	echo "Downloading NerdFonts"
 	wget -cdvi nerd_fonts_v2.1.0.txt
 	rm -rfv nerd_fonts_v2.1.0.txt
 	echo "Installing NerdFonts"
-	# copy nerdfonts files to relevant directories
+	# extract and copy nerdfonts files to relevant directories
+	cd ..
 
 	terms=($(pqqs "terminal emulator" | grep -iv "lib"))
 	if [[ ${#terms[@]} -eq 0 ]]
