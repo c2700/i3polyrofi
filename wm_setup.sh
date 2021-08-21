@@ -1,5 +1,6 @@
 #!/bin/bash
 
+script_dir="$PWD"
 if [[ $DESKTOP_SESSION != "i3" ]]
 then
 	echo "This rice setup is for i3-gaps Window Manager. Please run Your Linux machine on i3-gaps Window Manager"
@@ -23,7 +24,7 @@ then
 elif [[ $DESKTOP_SESSION == "i3" ]]
 then
 	echo "copying dunst i3 polybar and rofi config files to /home/$(whoami)/.config"
-	sleep 3
+	read -p "press any key to continue." -n1
 	cp -rfv dunst i3 polybar rofi -t "/home/$(whoami)/.config"
 	echo "Need to install bs4 (python module), NerdFonts, dunst rofi, rofi-calc and rofi-file-browser-extended-git"
 	echo "Installing dunst, rofi, rofi-calc"
@@ -31,7 +32,7 @@ then
 	echo "Downloading rofi-file-browser-extended"
 	git clone https://github.com/marvinkreis/rofi-file-browser-extended
 	echo "Installing rofi-file-browser-extended"
-	sleep 3
+	read -p "press any key to continue." -n1
 	cd rofi-file-browser-extended
 	makepkg -i
 	# makepkg -sdi
@@ -42,21 +43,27 @@ then
 	wget -cdv $(curl https://pypi.org/project/bs4/#files | grep -i pythonhosted | sed 's/\s*<a href="//g;s/">//g')
 	echo "Installing bs4"
 	pip install "$(ls bs4-*)"
-	echo "extracting links to download all nerdfonts files. The file containing the links is in $(PWD)/NerdFonts/nerd_fonts_v2.1.0.txt. Will be deleted after links have been extracted"
-	sleep 3
+	echo "The file containing the links to the Nerd Fonts zip files is in $(PWD)/NerdFonts/nerd_fonts_v2.1.0.txt"
+	read -p "press any key to continue." -n1
 	python3 extract_nerdfonts.py
 	cd NerdFonts
 	echo "Downloading NerdFonts"
 	wget -cdvi nerd_fonts_v2.1.0.txt
-	rm -rfv nerd_fonts_v2.1.0.txt
 	echo "Installing NerdFonts"
 	# extract and copy nerdfonts files to relevant directories
+	echo "You will find the nerd fonts zip files are in $script_dir/NerdFonts" ;;
+	read -p "press any key to continue." -n1
 	nerdfonts_files=($(ls *.zip | sed 's/.zip//g'))
 	for u in ${nerdfonts_files[@]}
 	do
 		unzip "${u}.zip" -d "/usr/share/fonts/$i"
 	done
 	cd ..
+	read -p "keep the nerdfonts zip files? [y/n]: " -n1 keep_nf_files
+	case $? in
+		'y'|'Y') echo "You will find the nerd fonts zip files are in $script_dir/NerdFonts" ;;
+		'n'|'N') rm -rfv NerdFonts
+	esac
 
 	terms=($(pqqs "terminal emulator" | grep -iv "lib"))
 	if [[ ${#terms[@]} -eq 0 ]]
