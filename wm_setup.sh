@@ -42,7 +42,7 @@ then
 	wget -cdv $(curl https://pypi.org/project/bs4/#files | grep -i pythonhosted | sed 's/\s*<a href="//g;s/">//g')
 	echo "Installing bs4"
 	pip install "$(ls bs4-*)"
-	echo "extracting links to download all nerdfonts files. The file containing the links is in $(PWD)/NerdFonts/nerd_fonts_v2.1.0.txt"
+	echo "extracting links to download all nerdfonts files. The file containing the links is in $(PWD)/NerdFonts/nerd_fonts_v2.1.0.txt. Will be deleted after links have been extracted"
 	sleep 3
 	python3 extract_nerdfonts.py
 	cd NerdFonts
@@ -51,6 +51,11 @@ then
 	rm -rfv nerd_fonts_v2.1.0.txt
 	echo "Installing NerdFonts"
 	# extract and copy nerdfonts files to relevant directories
+	nerdfonts_files=($(ls *.zip | sed 's/.zip//g'))
+	for u in ${nerdfonts_files[@]}
+	do
+		unzip "${u}.zip" -d "/usr/share/fonts/$i"
+	done
 	cd ..
 
 	terms=($(pqqs "terminal emulator" | grep -iv "lib"))
@@ -135,5 +140,16 @@ then
 	sed -i /home/$(whoami)/.config/polybar/launch.sh 's/home\/blank/home\/'$(whoami)'/g'
 	sed -i /home/$(whoami)/.config/polybar/config 's/home\/blank/home\/'$(whoami)'/g'
 	sed -i /home/$(whoami)/.config/dunst/dunstrc 's/home\/blank/home\/'$(whoami)'/g'
+	echo -e "install terminal file managers:\n  1)ranger\n  2) nnn\n 3) mc\n 4) fff\n 5) vifm\n"
+	read -p "choose option: " -n1 fm_opt
+	
+	case $fm_opt in
+		1) sudo pacman -Syvd --noconfirm ranger ;;
+		2) sudo pacman -Syvd --noconfirm nnn ;;
+		3) sudo pacman -Syvd --noconfirm mc ;;
+		4) sudo pacman -Syvd --noconfirm fff ;;
+		5) sudo pacman -Syvd --noconfirm vifm ;;
+	esac
+
 fi
 
