@@ -3,8 +3,7 @@ My personal i3, polybar and rofi dotfiles and with shell scripts for dunst notif
 You're going to need to install nerdfonts.
 If you ever feel like you can't find the fonts you are looking just head over to https://glyphsearch.com/?copy=unicode (Not my site. It's where I got some of the fonts for my rice. The option in the "copy" section selected needs to be "unicode" in order for you to copy the icon/font/glyph exactly the way it is to the terminal)<br><br>
 
-I'm also using curl in this script as pip tells me this. "ERROR: XMLRPC request failed [code: -32500]
-RuntimeError: PyPI's XMLRPC API is currently disabled due to unmanageable load and will be deprecated in the near future. See https://status.python.org/ for more information." (copy pasted the Error msg)
+I'm also using curl in this script to download bs4 as pip tells me this. "ERROR: XMLRPC request failed [code: -32500]<br>RuntimeError: PyPI's XMLRPC API is currently disabled due to unmanageable load and will be deprecated in the near future. See https://status.python.org/ for more information." (copy pasted the Error msg). pip is used to install bs4 though.
 
 <h2>dotfiles setup</h2><br>
 the wm_setup.sh script is to copy the config files to certain diretories and change the values on your machine. you might need to restart your machine to see all changes take effect.
