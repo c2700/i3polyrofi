@@ -18,7 +18,7 @@ sudo chmod a+x wm_setup.sh<br>
 - <h4>calendar:</h4>
 	left click - opens calendar in dunst notification<br><br>
 
-- <h4>disk module:</h4>'
+- <h4>disk module:</h4>
 	left click - shows all disks and partitions and their mountpoints in brackets (if mounted) next to the partition<br><br>
 	right click - shows all available disks (no partitions or their info).
 
