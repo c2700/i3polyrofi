@@ -51,6 +51,6 @@
 	summary = Wi-Fi
 	history_ignore = yes
 	format = " %b lol"
-	show_age_threshold = 5
+	show_age_threshold = 10
 	script = /home/blank/.config/polybar/module_shell_scripts/network_info/init_network_state.sh
 
