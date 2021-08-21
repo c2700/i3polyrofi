@@ -24,7 +24,7 @@ sudo chmod a+x wm_setup.sh<br>
 	1. left click - shows all disks and partitions and their mountpoints in brackets (if mounted) next to the partition<br>
 	2. right click - shows all available disks (no partitions or their info).<br><br>
 
-- init script - executes on i3 startup (not a daemon). shows, battery, wifi and ethernet stats on dunst<br><br>
+- init script - executes on i3 startup (not a daemon). shows, battery, wifi and ethernet stats via dunst<br><br>
 
 - arch logo - left click to spawn rofi<br><br>
 
