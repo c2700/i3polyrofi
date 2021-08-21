@@ -26,6 +26,13 @@ for links in nerd_fonts_links_obj.find_all("a"):
 		nf_21_links.write(link+"\n") # write links ending with .zip into the file
 
 # close the nerdfonts file
+
+if nf_21_links.read() == "":
+	print("Could not extract NerdFonts links. Go to https://www.nerdfonts.com/font-downloads to find all all nerdfonts files you wish to download")
+elif nf_21_links.read() != "":
+	print("extracted all available nerdfonts links to \"{}/NerdFonts/nerd_fonts_v2.1.0.txt\"".format(path.abspath(".")))
+
 nf_21_links.close()
 
-print("extracted all available nerdfonts links to \"{}/NerdFonts/nerd_fonts_v2.1.0.txt\"".format(path.abspath(".")))
+
+
