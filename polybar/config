@@ -21,8 +21,10 @@
 ;				BASE CLASSES
 ;
 [colors]
+	;background = ${xrdb:color0:#222}
 	bar-background = #222
 	bar-background-alt = #444
+	;foreground = ${xrdb:color7:#222}
 	bar-foreground = #dfdfdf
 	bar-foreground-alt = #555
 	primary = #ffb52a
@@ -32,11 +34,14 @@
 	module-background-alt = #585858
 	module-foreground = #00aaff
 	module-foreground-alt = #0094de
+	; module-underline = #0a6cf5
 
 [bar/basebar]
 	height = 34
 	monitor = ${env:MONITOR}
 	width = 100%
+	;offset-x = 1%
+	;offset-y = 1%
 	fixed-center = false
 
 	background = ${colors.bar-background}
@@ -92,8 +97,6 @@
 	format-connected-padding = 0
 	format-connected-overline = ${colors.bar-background}
 	format-connected-underline = ${colors.bar-background}
-	; format-connected-overline = #00
-	; format-connected-underline = #00
 	format-connected-background = ${colors.bar-background-alt}
 	label-connected = %{F#cc4400}%upspeed% %{T7}%{F-}%{F#af8a4a}%{T-} %downspeed%%{F-}
 	
@@ -140,9 +143,10 @@
 	overline-size = 4
 	underline-size = 6
 
+	; modules-center =
 	inherit = bar/basebar
- 	modules-left = distro_label xkeyboard
 	; modules-right = mpd xbacklight alsa pulseaudio temperature powermenu
+ 	modules-left = distro_label xkeyboard
 	modules-right = cmus wifi usbtether eth date time battery
 
 	cursor-click = pointer
@@ -163,10 +167,11 @@
 	type = internal/fs
 	interval = 0.1
 	mount-0 = /
+	; mount-1 = /boot
 
 	label-mounted = %{B#0856ff} F: %free% %{T7}%{F#ffffff}%{F-}%{T-}T: %total%%{T7}%{F#ffffff} %{F-}%{T-}%{B-}
 
-	format-mounted = %{A:/home/blank/.config/polybar/module_shell_scripts/./disks_info.sh:}%{B#ff8c8c}%{F#383838}  %{F-}%{T7}%{F#212121} /%{F-} %{B-}%{T-}<label-mounted>%{A}
+	format-mounted = %{A1:/home/blank/.config/polybar/module_shell_scripts/./disks_info.sh:}%{A3:/home/blank/.config/polybar/module_shell_scripts/./available_disks.sh:}%{B#ff8c8c}%{F#383838}  %{F-}%{T7}%{F#212121} /%{F-} %{B-}%{T-}<label-mounted>%{A}%{A}
 	format-mounted-background = ${colors.bar-foreground-alt}
 	format-mounted-underline = ${colors.bar-background}
 	format-mounted-overline = ${colors.bar-background}
@@ -252,6 +257,7 @@
 	format-prefix = "     "
 	format-prefix-background = ${colors.module-background}
 	format-prefix-foreground = #55ffff
+	; format-prefix-underline = ${colors.secondary}
 
 	label-indicator-on = %name%
 	
@@ -274,6 +280,7 @@
 
 	label-focused = %index%
 	label-focused-background = ${colors.bar-background-alt}
+	; label-focused-underline= ${colors.primary}
 	label-focused-padding = 2
 
 	label-occupied = %index%
@@ -286,6 +293,10 @@
 	label-empty = %index%
 	label-empty-foreground = ${colors.bar-foreground-alt}
 	label-empty-padding = 2
+
+	; Separator in between workspaces
+	; label-separator = |
+
 
 [module/i3_ws]
 	type = internal/i3
@@ -303,6 +314,7 @@
 	label-mode-overline = ${colors.bar-background}
 	label-mode = %mode%
  
+	; focused = Active workspace on focused monitor
 	label-focused = %index%  
 	label-focused-background = #ffb52a
 	label-focused-foreground = #550000
@@ -422,7 +434,7 @@
 
 
 [module/battery]
-	#reference
+	; reference
 	; animation-charging-foreground = ${colors.bar-foreground-alt}
 	; format-discharging-underline = ${self.format-charging-underline}
 	; animation-discharging-foreground = ${colors.bar-foreground-alt}
@@ -433,6 +445,7 @@
 
 	poll-interval = 1
 
+	; battery full
 	full-at = 100
 	label-full = 100%
 	format-full-prefix-foreground = ${colors.module-background}
@@ -461,6 +474,7 @@
 	format-charging-padding = 2
 	animation-charging-framerate = 750
 	format-charging-background = #ffd45a
+	
 
 	; discharging
 	ramp-capacity-0 = 
@@ -506,9 +520,7 @@
 	warn-temperature = 60
 
 	format = <ramp> <label>
-	; format-underline = #f50a4d
 	format-warn = <ramp> <label-warn>
-	; format-warn-underline = ${self.format-underline}
 
 	label = %temperature-c%
 	label-warn = %temperature-c%
