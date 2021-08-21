@@ -23,7 +23,7 @@ then
 
 elif [[ $DESKTOP_SESSION == "i3" ]]
 then
-	echo "copying dunst i3 polybar and rofi config files to /home/$(whoami)/.config"
+	echo "folders dunst i3 polybar and rofi to be copied to /home/$(whoami)/.config folder"
 	read -p "press any key to continue." -n1
 	cp -rfv dunst i3 polybar rofi -t "/home/$(whoami)/.config"
 	echo "Need to install bs4 (python module), NerdFonts, dunst rofi, rofi-calc and rofi-file-browser-extended-git"
@@ -51,7 +51,7 @@ then
 	wget -cdvi nerd_fonts_v2.1.0.txt
 	echo "Installing NerdFonts"
 	# extract and copy nerdfonts files to relevant directories
-	echo "You will find the nerd fonts zip files are in $script_dir/NerdFonts" ;;
+	echo "You will find the nerd fonts zip files are in $script_dir/NerdFonts"
 	read -p "press any key to continue." -n1
 	nerdfonts_files=($(ls *.zip | sed 's/.zip//g'))
 	for u in ${nerdfonts_files[@]}
