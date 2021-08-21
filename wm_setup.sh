@@ -24,7 +24,7 @@ elif [[ $DESKTOP_SESSION == "i3" ]]
 then
 	echo "copying dunst i3 polybar and rofi config files to /home/$(whoami)/.config"
 	sleep 3
-	cp -rfv dunst i3 polybar rofi "/home/$(whoami)/.config"
+	cp -rfv dunst i3 polybar rofi -t "/home/$(whoami)/.config"
 	echo "Need to install bs4 (python module), NerdFonts, dunst rofi, rofi-calc and rofi-file-browser-extended-git"
 	echo "Installing dunst, rofi, rofi-calc"
 	sudo pacman -Syvd --noconfirm dunst rofi rofi-calc

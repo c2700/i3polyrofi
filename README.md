@@ -4,6 +4,7 @@ You're going to need to install nerfonts.
 If you ever feel like you can't find the fonts you are looking just head over to https://glyphsearch.com/?copy=unicode (Not my site. It's where I got some of the fonts for my rice. The option in the "copy" section selected needs to be "unicode" in order for you to copy the icon/font/glyph exactly the way it is to the terminal)<br><br>
 
 <h2>dotfiles setup</h2><br>
+the wm_setup.sh script is to copy the config files to certain diretories and change the values on your machine. you might need to restart your machine to see all changes take effect.
 sudo chmod a+x wm_setup.sh<br>
 ./wm_setup.sh<br><br>
 
