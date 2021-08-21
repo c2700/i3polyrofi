@@ -18,13 +18,15 @@ sudo chmod a+x wm_setup.sh<br>
 - <h4>calendar:</h4>
 	left click - opens calendar in dunst notification<br><br>
 
-- <h4>disk module:</h4>left click - shows all disks and partitions and their mountpoints in brackets (if mounted) next to the partition<br><br>
+- <h4>disk module:</h4>'
+	left click - shows all disks and partitions and their mountpoints in brackets (if mounted) next to the partition<br><br>
+	right click - shows all available disks (no partitions or their info).
 
 - init script - executes on i3 startup (not a daemon). shows, battery, wifi and ethernet stats on dunst<br><br>
 
 - arch logo - left click to spawn rofi<br><br>
 
-- <h4>shortcuts:</h4>
+- <h4>i3 shortcuts:</h4>
 	1. super+r - resize windows<br>
 	2. super+f (or) <F11> - full screen window<br>
 	3. super+shift+space - toggle floating window mode<br>
