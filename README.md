@@ -13,16 +13,16 @@ sudo chmod a+x wm_setup.sh<br>
 	2. right click - disconnects wifi<br><br>
 
 - <h4>ethernet module:</h4>
-	left click - same as wifi module's left click<br><br>
+	1. left click - same as wifi module's left click<br><br>
 
 - <h4>calendar:</h4>
-	left click - opens calendar in dunst notification<br><br>
+	1. left click - opens calendar in dunst notification<br><br>
 
 - <h4>disk module:</h4>
-	left click - shows all disks and partitions and their mountpoints in brackets (if mounted) next to the partition<br><br>
-	right click - shows all available disks (no partitions or their info).
+	1. left click - shows all disks and partitions and their mountpoints in brackets (if mounted) next to the partition<br><br>
+	2. right click - shows all available disks (no partitions or their info).
 
-- init script - executes on i3 startup (not a daemon). shows, battery, wifi and ethernet stats on dunst<br><br>
+<br>- init script - executes on i3 startup (not a daemon). shows, battery, wifi and ethernet stats on dunst<br><br>
 
 - arch logo - left click to spawn rofi<br><br>
 
