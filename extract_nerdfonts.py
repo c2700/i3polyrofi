@@ -1,10 +1,10 @@
 import bs4
 import urllib
 import re
-from os import mkdir
+from os import mkdir, path
 
 # make a request to "nerdfonts.com" using request.urlopen() an store the result in an object 
-nerd_fonts_url=urllib.request.urlopen("https://www.nerdfonts.com/font-downloads").read()
+nerd_fonts_url=urllib.request.urlopen("https://www.nerdfonts.com/font-downloads")
 
 # return webpage content using read() and store the result in an object
 nerd_fonts_url_obj=nerd_fonts_url.read()
@@ -18,7 +18,7 @@ mkdir("NerdFonts")
 # open a file to store all nerdfonts links
 nf_21_links=open("NerdFonts/nerd_fonts_v2.1.0.txt","w+")
 
-# writing all nerdfonts links to file
+# writing all extracted nerdfonts links to file
 # find_all anchor tags
 for links in nerd_fonts_links_obj.find_all("a"):
 	link = links.get("href") # get anchor tags with the href attribute
@@ -28,5 +28,4 @@ for links in nerd_fonts_links_obj.find_all("a"):
 # close the nerdfonts file
 nf_21_links.close()
 
-print("extracted all available nerdfonts links")
-
+print("extracted all available nerdfonts links to \"{}/NerdFonts/nerd_fonts_v2.1.0.txt\"".format(path.abspath(".")))
