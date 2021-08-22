@@ -1,5 +1,9 @@
 #!/bin/bash
 
+set_background(){
+	
+}
+
 script_dir="$PWD"
 if [[ $DESKTOP_SESSION != "i3" ]]
 then
@@ -157,6 +161,18 @@ then
 		4) sudo pacman -Syvd --noconfirm fff ;;
 		5) sudo pacman -Syvd --noconfirm vifm ;;
 	esac
-
+	read -n1 -p "set a wallpaper (your background will be black by default. you can still your app.s) [y/n]: " choice
+	case $? choice
+		'n'|'N') echo "Background is set to default (black color)" ;;
+		'y'|'Y')
+			read -p "file path to picture of use as background: " bkgrnd_file
+			[[ ! -e "$bkgrnd_file" ]] && echo "invalid file path"
+			if [[ -e "$bkgrnd_file" ]]
+			then
+				sed -i "/home/$(whoami)/.config/i3/config" '202s/--bg-fill /--bg-fill '$bkgrnd_file'/g'
+				echo "$bkgrnd_file set as background"
+				;;
+			fi
+	esac
 fi
 
