@@ -29,11 +29,8 @@ do
 		esac
 	fi
 	disk_info="  $(echo $disk_name [/dev/$i] - $disk_size - $dev_pttype - $dev_iface | sed 's/\s\s*/ /g')\n"
-	disk_info_temp="$disk_info"
- 	export disk_info_temp
- 	length="$(python -c 'from os import environ;print((len(environ["disk_info_temp"]))-3)')"
- 	unset disk_info_temp
-	max_length=$length
+	max_length=${#disk_info}
+	length=${#disk_info}
 
 	[[ $max_length < $length ]] && max_length=$length
 
