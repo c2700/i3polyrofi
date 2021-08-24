@@ -38,6 +38,7 @@ disk_partition_info(){
 		local disk_part_info_string=""
 	
 		local part_label="$(lsblk "/dev/$1" -no partlabel)"
+
 		if [[ $part_label == "" ]] || [[ -z $part_label ]] || [[ $part_label =~ "\s+" ]]
 		then
 			part_label="(None)"
@@ -50,18 +51,37 @@ disk_partition_info(){
 	
 		if [[ $mntpt == "" ]] || [[ -z $mntpt ]] || [[ $mntpt =~ " " ]]
 		then
-			disk_part_info_string=" $name - [Total: $size] [Label: $part_label] [Type: $disk_parttypename] [fs: $fstype] "
-			# disk_part_info_string=" $name - [T: $size] [L: $part_label] [PT: $disk_parttypename] [FS: $fstype] "
+			disk_part_info_string=" $name - [T: $size] [L: $part_label] [PT: $disk_parttypename] [FS: $fstype] "
 		elif [[ $mntpt != "" ]] || [[ -n $mntpt ]] || [[ ! $mntpt =~ " " ]]
 		then
-			if [[ $fstype == "swap" ]]
+			if [[ $mntpt == "/" ]] || [[ $mntpt =~ "/home/\w*/$" ]] || [[ $mntpt =~ "/boot" ]] || [[ $mntpt == "[SWAP]" ]]
 			then
-				disk_part_info_string=" $name ($mntpt) - [Total: $size] [Label: $part_label] [Type: $disk_parttypename] [fs: $fstype] "
-				# disk_part_info_string=" $name ($mntpt) - [T: $size] [L: $part_label] [PT: $disk_parttypename] [FS: $fstype] "
-			elif [[ $fstype != "swap" ]]
+				if [[ $fstype == "swap" ]]
+				then
+					disk_part_info_string=" $name ($mntpt) - [T: $size] [L: $part_label] [PT: $disk_parttypename] [FS: $fstype] "
+				elif [[ $fstype != "swap" ]]
+				then
+					disk_part_info_string=" $name ($mntpt) - [T: $size] [U: $free_partition_size] [L: $part_label] [PT: $disk_parttypename] [FS: $fstype] "
+				fi
+
+			elif [[ $mntpt =~ "/home(/\w*)/" ]] || [[ ! $mntpt =~ "/boot" ]]
 			then
-				disk_part_info_string=" $name ($mntpt) - [Total: $size] [Used: $free_partition_size] [Label: $part_label] [Type: $disk_parttypename] [fs: $fstype] "
-				# disk_part_info_string=" $name ($mntpt) - [T: $size] [U: $free_partition_size] [L: $part_label] [PT: $disk_parttypename] [FS: $fstype] "
+				if [[ $fstype == "swap" ]]
+				then
+					spaces=""
+					for (( i=0;i <= ${#mntpt}; i++ )){
+						spaces+=" "
+					}
+					disk_part_info_string=" $name ($mntpt) - [T: $size] [L: $part_label]\n$spaces [PT: $disk_parttypename] [FS: $fstype] "
+					unset spaces
+				elif [[ $fstype != "swap" ]]
+				then
+					spaces=""
+					for (( i=0;i <= $((${#mntpt}+${#name}+2)); i++ )){
+						spaces+=" "
+					}
+					disk_part_info_string=" $name ($mntpt) - [T: $size] [U: $free_partition_size] [L: $part_label]\n  |$spaces [PT: $disk_parttypename] [FS: $fstype] "
+				fi
 			fi
 		fi
 		echo "$disk_part_info_string"
