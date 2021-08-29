@@ -1,0 +1,242 @@
+/******************************************************************************
+ * ROFI Color theme
+ * User: Rasi
+ * Copyright: Rasmus Steinke
+ ******************************************************************************/
+* {
+    selected-normal-foreground:  rgba ( 255, 255, 255, 100 % );
+    foreground:                  rgba ( 255, 255, 255, 100 % );
+    normal-foreground:           @foreground;
+    alternate-normal-background: transparent;
+    red:                         rgba ( 220, 50, 47, 100 % );
+    selected-urgent-foreground:  rgba ( 255, 195, 156, 100 % );
+    blue:                        rgba ( 38, 139, 210, 100 % );
+    urgent-foreground:           rgba ( 243, 132, 61, 100 % );
+    alternate-urgent-background: transparent;
+    active-foreground:           rgba ( 38, 139, 210, 100 % );
+    lightbg:                     rgba ( 238, 232, 213, 100 % );
+    selected-active-foreground:  rgba ( 32, 81, 113, 100 % );
+    alternate-active-background: transparent;
+    background:                  transparent;
+    bordercolor:                 rgba ( 57, 57, 57, 100 % );
+    alternate-normal-foreground: @foreground;
+    normal-background:           transparent;
+    lightfg:                     rgba ( 88, 104, 117, 100 % );
+    selected-normal-background:  rgba ( 38, 139, 210, 100 % );
+    border-color:                @foreground;
+    spacing:                     2;
+    separatorcolor:              rgba ( 38, 139, 210, 100 % );
+    urgent-background:           transparent;
+    selected-urgent-background:  rgba ( 38, 139, 210, 100 % );
+    alternate-urgent-foreground: @urgent-foreground;
+    background-color:            rgba ( 0, 0, 0, 0 % );
+    alternate-active-foreground: @active-foreground;
+    active-background:           rgba ( 57, 57, 57, 100 % );
+    selected-active-background:  rgba ( 38, 139, 210, 100 % );
+}
+
+
+
+
+window {
+    background-color: rgba ( 38, 109, 117, 83% );
+    /* background-color: rgba ( 57, 57, 57, 85 % ); */
+    border:           0;
+    padding:          0;
+	/* opacity:		  1; */
+	border-radius:	  10;
+}
+mainbox {
+    border:  0;
+    padding: 10;
+    text-color: #ff0000;
+}
+message {
+    border:       1px dash 0px 0px ;
+    border-color: @separatorcolor;
+    padding:      1px ;
+}
+textbox {
+    text-color: #c3c392;
+    /* text-color: @foreground; */
+}
+
+element-icon {
+	border-color: transparent ;
+	size: 30;
+}
+
+element-text {
+	/* up rt  dwn lt */
+	border: 3 0 0 8;
+	/* border-color: #ffffff ; */
+	border-color: transparent ;
+	font: "sans 15";
+	highlight: italic bold #aaff00 ;
+	/* highlight: italic bold #00ff00 ; */
+}
+
+listview {
+    fixed-height: 1;
+    border:       10px solid 0px 0px ;
+    border-color: transparent ;
+    /* border-color: @separatorcolor ; */
+    spacing:      5px ;
+    scrollbar:    true ;
+    padding:      0px 0px 0px ;
+    text-color: transparent ;
+	width: 80 ;
+	element-icon: true ;
+	element-text: true ;
+}
+
+
+element {
+    border:  0;
+    padding: 10px ;	
+}
+
+element.normal.normal {
+    text-color:       #00ffff;
+    /* text-color:       @alternate-normal-foreground; */
+    background-color: @normal-background;
+}
+element.normal.urgent {
+    background-color: #e30000;
+    /* background-color: @urgent-background; */
+    /* text-color:       @urgent-foreground; */
+    /* text-color: #ffff00; */
+}
+element.normal.active {
+	border-color: @active-background;
+	border-radius:	  6 6 12 12;
+    background-color: rgba(0, 255, 127, 30%);
+    /* background-color: #00ff7f; */
+    /* background-color: @active-background; */
+    /* text-color:       @active-foreground; */
+    /* text-color: #ffff00; */
+}
+element.selected.normal {
+    /* background-color: rgba(0, 128, 58, 55%); */
+    /* background-color: transparent; */
+    /* border:       2 2 2 2; */
+    background-color: rgba ( 40, 40, 40, 80 % );
+    border:       0 0 4 0;
+    /* border:       0 4 6 4; */
+	border-color: #aaaa7f;
+	/* border-color: rgba(170,0,0, 50%); */
+	padding: 3;
+	border-radius:	  5 5 5 5;
+    /* background-color: #756e58; */
+    /* background-color: @selected-normal-background; */
+    /* text-color:       @selected-normal-foreground; */
+    text-color: #ffff00;
+}
+element.selected.urgent {
+    background-color: @selected-urgent-background;
+    /* text-color:       @selected-urgent-foreground; */
+}
+element.selected.active {
+    background-color: @active-background;
+    /* background-color: @selected-active-background; */
+    /* text-color:       @active-foreground; */
+    text-color: #ffff00;
+	border-color: #aaaa7f;
+    background-color: rgba(0, 255, 127, 30%);
+    /* border:       2 2 2 2; */
+    border:       4 4 0 0;
+	border-radius:	  6 6 12 12;
+	element-icon: true ;
+}
+element.alternate.normal {
+    background-color: @alternate-normal-background;
+    /* text-color:       @alternate-normal-foreground; */
+    text-color:       #00ffff;
+    /* text-color:       @alternate-normal-foreground; */
+    /* text-color: #ffff00; */
+}
+element.alternate.urgent {
+    background-color: @alternate-urgent-background;
+    /* text-color:       @alternate-urgent-foreground; */
+}
+element.alternate.active {
+	border-radius:	  6 6 12 12;
+    background-color: rgba(0, 255, 127, 30%);
+    /* background-color: @alternate-active-background; */
+    /* text-color:       @alternate-active-foreground; */
+}
+
+mode-switcher {
+    border:      20px 0px 0px 0px ;
+    border-color: transparent;
+	border-color: transparent;
+    /* border-color: @separatorcolor; */
+}
+
+scrollbar {
+	background-color: transparent;
+	foreground-color: transparent;
+	border-radius: 20;
+	/* handle-border-radius: 20; */
+	border: 2 2 2 2;
+	border-color: transparent ;
+	/* margin: 80; */
+
+    handle-color: rgba ( 170, 255, 127, 50% ) ;
+    /* width: 20 ; */
+	/* handle-background: transparent ; */
+    /* handle-width: 3px ; */
+    /* padding: 0; */
+}
+
+button.selected {
+    background-color: #00aa7f;
+    /* background-color: @selected-normal-background; */
+    /* text-color:       @selected-normal-foreground; */
+	border: 4 3 0 0 ;
+	border-radius: 4 4 4 4 ;
+	border-color: rgba(240, 74, 74, 50%);
+    text-color: #000000;
+}
+
+button {
+    background-color: @background;
+    text-color:       @foreground;
+	border: 0 0 2 2;
+	border-radius: 4 4 4 4 ;
+	font: "sans 13" ;
+	padding: 0;
+	margin: 4;
+	border-color: #ffff00;
+}
+inputbar {
+    spacing:    0;
+    text-color: @normal-foreground;
+    padding:    1px ;
+}
+case-indicator {
+    /* spacing:    20; */
+    text-color: transparent;
+    /* text-color: @normal-foreground; */
+}
+entry {
+    spacing: 0;
+    text-color: #00f5b4;
+    /* text-color: @normal-foreground; */
+}
+prompt {
+    spacing: 0;
+    text-color: #00ffff;
+    /* text-color: @normal-foreground; */
+}
+inputbar {
+    children:   [ prompt,textbox-prompt-colon,entry,case-indicator ];
+}
+textbox-prompt-colon {
+    expand:     false;
+    str:        ":";
+    margin:     0px 0.3em 0em 0em ;
+    text-color: #00ffff;
+    /* text-color: @normal-foreground; */
+}
+

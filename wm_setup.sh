@@ -30,7 +30,7 @@ then
 	echo "folders dunst i3 polybar and rofi to be copied to /home/$(whoami)/.config folder"
 	read -p "press any key to continue." -n1
 	cp -rfv dunst i3 polybar rofi -t "/home/$(whoami)/.config"
-	echo "Need to install bs4 (python module), NerdFonts, dunst rofi, rofi-calc and rofi-file-browser-extended-git"
+	echo "Need to install bs4 (python module), fontTools (python module), icons-in-terminal, NerdFonts, dunst rofi, rofi-calc and rofi-file-browser-extended-git"
 	echo "Installing dunst, rofi, rofi-calc"
 	sudo pacman -Syvd --noconfirm dunst rofi rofi-calc
 	echo "Downloading rofi-file-browser-extended"
@@ -43,10 +43,21 @@ then
 	makepkg -sd
 	sudo pacman -Uvd --noconfirm *rofi*file*browser*.pkg.tar.*
 	cd ..
-	echo "Downloading bs4"
+	rm -rfv rofi-file-browser-extended
+	echo "Downloading icons-in-terminal"
+	git clone https://github.com/sebastiencs/icons-in-terminal
+	echo "Installing icons-in-terminal"
+	cd icons-in-terminal
+	chmod a+x *.sh
+	./install.sh
+	cd ..
+
+	echo "Downloading bs4 and fontTools"
 	wget -cdv $(curl https://pypi.org/project/bs4/#files | grep -i pythonhosted | sed 's/\s*<a href="//g;s/">//g')
-	echo "Installing bs4"
+	wget -cdv $(curl https://pypi.org/project/fonttools/#files | grep -i pythonhosted | sed 's/\s*<a href="//g;s/">//g')
+	echo "Installing bs4 and fontTools"
 	pip install "$(ls bs4-*)"
+	pip install "$(ls fontTools-*)"
 	echo "The file containing the links to the Nerd Fonts zip files is in $(PWD)/NerdFonts/nerd_fonts_v2.1.0.txt"
 	read -p "press any key to continue." -n1
 	python3 extract_nerdfonts.py
@@ -175,4 +186,19 @@ then
 			fi
 	esac
 fi
+
+read -n1 -p "save installed glyphs with it's names in a text_file? [y/n]: " choice_g
+
+case $choice_g in
+	"y"|"Y")
+		echo "saving glyph hex code in glyphs_code.txt"
+		icons-in-terminal | grep -iv 'glyphs\|total' | tr [A-Z] [a-z] | sed 's/  /\n/g' > glyphs_code.txt
+		echo "saving glyph with it's info in glyphs_info.txt"
+		python3 hex_to_glyph.py > glyphs_info.txt
+		echo "saved glyph with it's info in glyphs_info.txt"
+		echo "removing glyphs_code.txt file"
+		rm -rfv glyphs_code.txt
+		echo "removed glyphs_code.txt file"
+		;;
+esac
 
