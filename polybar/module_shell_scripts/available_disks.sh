@@ -16,19 +16,19 @@ do
 	if [[ $removable_dev -eq 1 ]]
 	then
 		case $dev_iface_temp in
-			"usb") dev_iface="removable USB drive" ;;
-			"ata") dev_iface="removable ATA drive" ;;
-			"sata") dev_iface="removable SATA drive" ;;
+			"usb") dev_iface="removable 禍" ;;
+			"ata") dev_iface="removable ATA " ;;
+			"sata") dev_iface="removable SATA " ;;
 		esac	
 	elif [[ $removable_dev -eq 0 ]]
 	then
 		case $dev_iface_temp in
-			"usb") dev_iface="USB drive" ;;
-			"ata") dev_iface="ATA drive" ;;
-			"sata") dev_iface="SATA drive" ;;
+			"usb") dev_iface="USB 禍" ;;
+			"ata") dev_iface="ATA " ;;
+			"sata") dev_iface="SATA " ;;
 		esac
 	fi
-	disk_info="  $(echo $disk_name [/dev/$i] - $disk_size - $dev_pttype - $dev_iface | sed 's/\s\s*/ /g')\n"
+	disk_info="  $(echo $dev_iface - $disk_size - $dev_pttype - $disk_name [/dev/$i] | sed 's/\s\s*/ /g')\n"
 	max_length=${#disk_info}
 	length=${#disk_info}
 

@@ -54,7 +54,7 @@ disk_partition_info(){
 			disk_part_info_string=" $name - [T: $size] [L: $part_label] [PT: $disk_parttypename] [FS: $fstype] "
 		elif [[ $mntpt != "" ]] || [[ -n $mntpt ]] || [[ ! $mntpt =~ " " ]]
 		then
-			if [[ $mntpt == "/" ]] || [[ $mntpt =~ "/home/\w*/$" ]] || [[ $mntpt =~ "/boot" ]] || [[ $mntpt == "[SWAP]" ]]
+			if [[ ! "$name" =~ "\`-${disk_arrays[-1]}" ]] && ( [[ $mntpt == "/" ]] || [[ $mntpt =~ "/home/\w*/$" ]] || [[ $mntpt =~ "/boot" ]] || [[ $mntpt == "[SWAP]" ]] )
 			then
 				if [[ $fstype == "swap" ]]
 				then
@@ -77,10 +77,10 @@ disk_partition_info(){
 				elif [[ $fstype != "swap" ]]
 				then
 					spaces=""
-					for (( i=0;i <= $((${#mntpt}+${#name}+2)); i++ )){
+					for (( i=0;i <= $((${#mntpt}+${#name}+1)); i++ )){
 						spaces+=" "
 					}
-					disk_part_info_string=" $name ($mntpt) - [T: $size] [U: $free_partition_size] [L: $part_label]\n  |$spaces [PT: $disk_parttypename] [FS: $fstype] "
+					disk_part_info_string=" $name ($mntpt) - [T: $size] [U: $free_partition_size] [L: $part_label]\n  | $spaces [PT: $disk_parttypename] [FS: $fstype] "
 				fi
 			fi
 		fi
@@ -104,16 +104,16 @@ Disk_info(){
 	if [[ $removable_dev -eq 1 ]]
 	then
 		case $dev_iface in
-			"usb") disk_type="removable USB drive" ;;
-			"ata") disk_type="removable ATA drive" ;;
-			"sata") disk_type="removable SATA drive" ;;
+			"usb") disk_type="removable 禍" ;;
+			"ata") disk_type="removable ATA " ;;
+			"sata") disk_type="removable SATA " ;;
 		esac
 	elif [[ $removable_dev -eq 0 ]]
 	then
 		case $dev_iface in
-			"usb") disk_type="USB drive" ;;
-			"ata") disk_type="ATA drive" ;;
-			"sata") disk_type="SATA drive" ;;
+			"usb") disk_type="禍" ;;
+			"ata") disk_type="ATA " ;;
+			"sata") disk_type="SATA " ;;
 		esac
 	fi
 	disk_info_string_summary=" $disk_name [/dev/$disk_kname - ($disk_size - $dev_pttype) - $disk_type] "

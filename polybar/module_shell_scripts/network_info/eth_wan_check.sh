@@ -1,9 +1,10 @@
 #!/bin/bash
 
 eth_connected(){
+	set -xBv
 	if [[ "$(nmcli device status | grep -i "ethernet" | awk '{ print $3 }')" == "unavailable" ]]
 	then
-		notify-send " Ethernet not connected "
+		notify-send " "
 		while [[ "$(nmcli device status | grep -i "ethernet" | awk '{ print $3 }')" == "unavailable" ]]
 		do
 			sleep 1
@@ -11,16 +12,19 @@ eth_connected(){
 	elif [[ "$(nmcli device status | grep -i "ethernet" | awk '{ print $3 }')" == "connected" ]]
 	then
 		local ssid="$(nmcli device status | grep -i ether | grep -i "connect" | awk '{ $1=$2=$3=NULL;sub("\\s+","");print $0 }')"
-		notify-send -u low " Ethernet connected "
-		notify-send " Checking for WAN connection via Ethernet "
-		ping -W 1 -c2 -I enp4s0 www.google.com
+		notify-send -u low "  $ssid"
+		notify-send " ?()"
+		eth_dev="$(nmcli connection show --active | grep -iv "type" | grep -i "ether" | awk '{ a=0;for(i=1;$i != ethernet;i++) { a=i } print $a}')"
+		ping -i 0.5 -W 0.5 -c 2 -I $eth_dev www.google.com
 		case $? in
-			0) notify-send " Ethernet connected to WAN " ;;
-			1) notify-send " Ethernet not connected to WAN " ;;
+			0) notify-send " ()" ;;
+			1|2) notify-send " ()" ;;
+			*) notify-send " ()" ;;
+			# *) notify-send " ()" ;;
 		esac
 		while [[ "$(nmcli device status | grep -i "ethernet" | awk '{ print $3 }')" == "connected" ]]
 		do
-			ping -W 1 -c2 -I enp4s0 www.google.com
+			ping -i 0.5 -W 0.5 -c 2 -I $eth_dev www.google.com
 			wan_check $?
 		done
 	fi
@@ -28,19 +32,23 @@ eth_connected(){
 
 wan_check(){
 	local init_ping_stat=$1
-	ping -W 1 -c2 -I enp4s0 www.google.com
+	eth_dev="$(nmcli connection show --active | grep -iv "type" | grep -i "ether" | awk '{ a=0;for(i=1;$i != ethernet;i++) { a=i } print $a}')"
+	ping -i 0.5 -W 0.5 -c 2 -I $eth_dev www.google.com
 	local current_ping_stat=$?
+	echo "init_ping_stat - $init_ping_stat current_ping_stat - $current_ping_stat"
 	if [[ $init_ping_stat -ne $current_ping_stat ]]
 	then
 		case $current_ping_stat in
-			0) notify-send " Ethernet connected to WAN " ;;
-			1) notify-send " Ethernet not connected to WAN " ;;
+			0) notify-send " ()" ;;
+			1|2) notify-send " ()" ;;
+			*) notify-send " (!)" ;;
+			# *) notify-send " ()" ;;
 		esac
 	elif [[ $init_ping_stat -eq $current_ping_stat ]]
 	then
 		while ( [[ "$(nmcli device status | grep -i "ethernet" | awk '{ print $3 }')" == "connected" ]] && [[ $init_ping_stat -eq $current_ping_stat ]] )
 		do
-			ping -W 1 -c2 -I enp4s0 www.google.com
+			ping -i 0.5 -W 0.5 google.com -I $eth_dev -c 2 &>/dev/null
 			init_ping_stat=$?
 			sleep 1
 		done
