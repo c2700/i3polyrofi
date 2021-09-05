@@ -11,7 +11,7 @@ status=""
 wifi_dev="$(nmcli device | grep -i connected | grep -i "wifi " | awk '{ print $1 }')"
 if [[ "$pvt_ipv4" =~ "pvt IPv4" ]]
 then
-	notify-send -u low $urgency_lvl -c "wireless_lan" -a "wlan" "  ($wifi_dev)$ssid" "  $pvt_ipv4\n$ipv6  "
+	notify-send -u low $urgency_lvl -c "wireless_lan" -a "wlan" "  ($wifi_dev)泌($ssid)" "  $pvt_ipv4\n$ipv6"
 elif [[ ! "$pvt_ipv4" =~ "pvt IPv4" ]]
 then
 	notify-send $urgency_lvl -c "wireless_lan" -a "wlan" " "

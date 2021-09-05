@@ -6,19 +6,21 @@
 	# show_age_threshold = 10
     word_wrap = yes
 	dmenu = rofi -config "/home/blank/.config/rofi/rofi_config.rasi" -show drun
-	corner_radius = 10
-	geometry = "0x0-8+40"
-	layer = top
-	transparency = 20
+	corner_radius = 0
+	# geometry = "0x0-9+100"
+	geometry = "0x0-9+43"
+	layer = bottom
+	# layer = top
+	transparency = 10
 	separator_height = 6
-	padding = 10
+	padding = 5
 	separator_color = #000000
-	frame_width = 4
+	frame_width = 2
 	# always_run_script = yes
 	format = "%s\n%b"
-	sort = yes
-	title = dunst
-	class = dunst
+	sort = no
+	# title = dunst
+	# class = dunst
 
 [shortcuts]
 	close = ctrl+space
@@ -46,7 +48,7 @@
 	# urgency = low
 	history_ignore = yes
 	format = strip
-
+	
 [wireless_lan]
 	appname = wlan
 	summary = Wi-Fi
@@ -58,7 +60,6 @@
 	summary = Wi-Fi
 	# urgency = low
 	history_ignore = yes
-	format = " %b lol"
+	# format = " %b lol"
 	show_age_threshold = 5
 	script = /home/blank/.config/polybar/module_shell_scripts/network_info/init_network_state.sh
-

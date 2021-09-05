@@ -57,7 +57,7 @@ bindsym $mod+Shift+q kill
 # There also is i3-dmenu-desktop which only displays applications shipping a
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
-bindsym $mod+d exec rofi -config "/home/blank/.config/rofi/rofi_config.rasi" -show drun
+bindsym $mod+d exec rofi -config "/home/blank/.config/rofi/rofi_config.rasi" -show "drun" -icon-theme "Papirus"
 
 # change focus
 bindsym $mod+j focus left
@@ -213,16 +213,22 @@ bindsym $mod+b exec "/home/blank/.config/i3/scripts/screens/turn_off_all_screens
 bindsym Control+Shift+Escape exec konsole -e sudo htop
 bindsym Control+Shift+Delete exec sudo shutdown now -f
 bindsym Control+Mod1+Delete exec sudo reboot now -f
-bindsym Control+Mod1+f exec rofi -config "/home/blank/.config/rofi/rofi_config.rasi" -show file-browser-extended
+bindsym Control+Mod1+f exec rofi -config "/home/blank/.config/rofi/rofi_config.rasi" -file-browser-config "/home/blank/.config/rofi/file-browser"
 
 exec_always --no-startup-id /home/blank/.config/polybar/launch.sh
 exec sudo killall notify-osd
 exec dunst
-exec bash /home/blank/.config/polybar/module_shell_scripts/init_notify.sh
+
+# uncomment dis 2
+# exec bash /home/blank/.config/polybar/module_shell_scripts/init_notify.sh
+
+# leave dis
 # exec bash /home/blank/.config/polybar/module_shell_scripts/battery_alert.sh
 # exec bash /home/blank/.config/polybar/module_shell_scripts/network_info/wifi_wan_check.sh
 # exec bash /home/blank/.config/polybar/module_shell_scripts/network_info/eth_wan_check.sh
-exec_always bash /home/blank/.config/polybar/module_shell_scripts/battery_alert.sh
-exec_always bash /home/blank/.config/polybar/module_shell_scripts/network_info/wifi_wan_check.sh
-exec_always bash /home/blank/.config/polybar/module_shell_scripts/network_info/eth_wan_check.sh
+
+# uncomment bottom plz
+# exec_always bash /home/blank/.config/polybar/module_shell_scripts/battery_alert.sh
+# exec_always bash /home/blank/.config/polybar/module_shell_scripts/network_info/wifi_wan_check.sh
+# exec_always bash /home/blank/.config/polybar/module_shell_scripts/network_info/eth_wan_check.sh
 

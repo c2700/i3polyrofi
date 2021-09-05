@@ -8,15 +8,16 @@ wifi_check(){
 	[[ "$wifi_connect_state" == "disconnected" ]] && notify-send -c "init_network_state" " Wi-Fi not connected "
 	if [[ "$wifi_connect_state" == "connected" ]]
 	then
-		notify-send -u low -c "init_network_state" " ?() "
+		notify-send -u low -c "init_network_state" " ?()"
 		# ping google.com -c 1 -I wlo1 >logs/init.log
 		ping google.com -c 1 -I wlo1 &>/dev/null
 		case $? in
-			0) notify-send -u low -c "init_network_state" " 泌() " ;;
+			0) notify-send -u low -c "init_network_state" " 泌()" ;;
 			2) 
 				local network_profile="$(nmcli device | grep -i " connected" | grep -i "wifi" | awk '{ $1=$2=$3=NULL; sub("^\\s+","");print $0 }')"
 				local ssid="$(iwgetid -r)"
-				notify-send -c "init_network_state" " ()泌. Not connected to WAN " " ssid - $ssid\n network profile - $network_profile " ;;
+				local wifi_dev="$(nmcli connection show --active | grep -iv "type\|ethernet" |awk '{ a=0;for(i=1;$i != wifi;i++) { a=i }sub("DEVICE","");print $a}')"
+				notify-send -c "init_network_state" " ($wifi_dev)($ssid)泌. Not connected to WAN" " ssid - $ssid\n network profile - $network_profile" ;;
 		esac
 	fi
 	clear
@@ -26,20 +27,20 @@ eth_check(){
 	clear
 	local ethernet_connect_state="$(nmcli device status | grep -i "ether" | awk '{ print $3 }')"
 
-	( [[ "$ethernet_connect_state" == "disconnected" ]] || [[ "$ethernet_connect_state" == "unavailable" ]] ) && notify-send  -c "init_network_state" "  "
+	( [[ "$ethernet_connect_state" == "disconnected" ]] || [[ "$ethernet_connect_state" == "unavailable" ]] ) && notify-send  -c "init_network_state" " "
 
 	if [[ "$ethernet_connect_state" == "connected" ]]
 	then
 		local ssid="$(nmcli device status | grep -i ether | grep -i "connect" | awk '{ $1=$2=$3=NULL;sub("\\s+","");print $0 }')"
-		notify-send -u low -c "init_network_state" "  ($ssid) ?() "
+		notify-send -u low -c "init_network_state" "  ($ssid) ?()"
 		# ping google.com -c 1 -I enp4s0 >logs/init.log
 		ping google.com -c 1 -I enp4s0 &>/dev/null
 		case $? in
-			0) notify-send -u low -c "init_network_state" " ($ssid)() " ;;
+			0) notify-send -u low -c "init_network_state" " ($ssid)()" ;;
 			1|2)
 				connection_profile="$(nmcli device status | grep -i "ethernet" | awk '{ $1=$2=$3=NULL; sub("^\\s*","");print $0}')"
 				# ssid="$(nmcli device status | grep -i "ethernet" | awk '{ $1=$2=$3=NULL; sub("^\\s*","");print $0}')"
-				notify-send -c "init_network_state" " ($ssid)() " " connection profile - $connection_profile\n " 
+				notify-send -c "init_network_state" " ($ssid)()" " connection profile - $connection_profile" 
 				;;
 		esac
 	fi

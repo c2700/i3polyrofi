@@ -180,8 +180,8 @@
 	type = internal/fs
 	mount-0 = /dev/sr0
 	# content = %{A1:eject /dev/cdrom:}%{T1} ⏏ %{T-}%{A}
-	format-mounted = %{A1:eject /dev/cdrom:}%{T1}%{B#aaff00}%{F#0055ff}  %{T-}%{F-}%{B-}%{F#ff5500}%{B#3cb300}U:%used% | T:%total% %{F-}%{B-}%{A}
-	format-unmounted = %{A1:eject /dev/cdrom:}%{T7}%{B#55ff00}%{F#0055ff}  %{T-}%{F-}%{B-}%{A}
+	format-mounted = %{A1:/home/blank/.config/polybar/module_shell_scripts/./eject_cdrom.sh:}%{T1}%{B#aaff00}%{F#0055ff}  %{T-}%{F-}%{B-}%{F#550000}%{B#3cb300}U:%used% | T:%total% %{F-}%{B-}%{A}
+	format-unmounted = %{A1:/home/blank/.config/polybar/module_shell_scripts/./eject_cdrom.sh:}%{T7}%{B#55ff00}%{F#0055ff}  %{T-}%{F-}%{B-}%{F#550000}%{B#3cb300} Insert Disc %{F-}%{B-} %{A}
 	content-foreground = #0055ff
 	content-background = #aaff00
 	format-unmounted-underline = ${colors.bar-background}
@@ -368,11 +368,11 @@
 	format = %{T7}<label-state> <label-mode> %{T-}
 	index-sort = true
 	;wrapping-scroll = true
-
+	
 	; Only show workspaces on the same output as the bar
 	pin-workspaces = true
 
-	label-mode-padding = 1 
+	label-mode-padding = 1
 	label-mode-foreground = #000000
 	label-mode-background = #99741f
 	label-mode-underline = ${colors.bar-background}

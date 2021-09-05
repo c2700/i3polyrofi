@@ -16,16 +16,16 @@ do
 	if [[ $removable_dev -eq 1 ]]
 	then
 		case $dev_iface_temp in
-			"usb") dev_iface="removable 禍" ;;
-			"ata") dev_iface="removable ATA " ;;
-			"sata") dev_iface="removable SATA " ;;
+			"usb") dev_iface="removable 禍" ;;
+			"ata") dev_iface="removable ATA " ;;
+			"sata") dev_iface="removable SATA " ;;
 		esac	
 	elif [[ $removable_dev -eq 0 ]]
 	then
 		case $dev_iface_temp in
-			"usb") dev_iface="USB 禍" ;;
-			"ata") dev_iface="ATA " ;;
-			"sata") dev_iface="SATA " ;;
+			"usb") dev_iface="USB 禍" ;;
+			"ata") dev_iface="ATA " ;;
+			"sata") dev_iface="SATA " ;;
 		esac
 	fi
 	disk_info="  $(echo $dev_iface - $disk_size - $dev_pttype - $disk_name [/dev/$i] | sed 's/\s\s*/ /g')\n"
@@ -49,5 +49,4 @@ for (( j=0;j<=$max_length;j++ )){
 	head_lines+="-"
 }
 
-notify-send -u low " Attached Disks " " ${head_lines}\n ${diskinfo_array[*]} "
-
+notify-send -u low " Attached Disks " " ${head_lines}\n ${diskinfo_array[*]}"
