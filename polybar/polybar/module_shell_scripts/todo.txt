@@ -1,0 +1,2 @@
+find a place to call the "battery_notify" func in battery_alert.sh {it worx now. (I hope)}
+script to notify and auto mount inserted disks

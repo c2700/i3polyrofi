@@ -199,7 +199,7 @@ for_window [class="^.*"] border pixel 2
 # exec picom -b -f --backend glx
 exec picom -b -f
 
-exec --no-startup-id feh --bg-fill /home/blank/Pictures/Wallpapers/wp3883008-halo-1-wallpapers.jpg
+exec --no-startup-id feh --bg-fill /home/blank/Pictures/wallpapers/halo_wars_3.jpg
 exec xrandr --output eDP-1 --right-of HDMI-1
 
 gaps inner 5
@@ -219,16 +219,8 @@ exec_always --no-startup-id /home/blank/.config/polybar/launch.sh
 exec sudo killall notify-osd
 exec dunst
 
-# uncomment dis 2
-# exec bash /home/blank/.config/polybar/module_shell_scripts/init_notify.sh
-
-# leave dis
-# exec bash /home/blank/.config/polybar/module_shell_scripts/battery_alert.sh
-# exec bash /home/blank/.config/polybar/module_shell_scripts/network_info/wifi_wan_check.sh
-# exec bash /home/blank/.config/polybar/module_shell_scripts/network_info/eth_wan_check.sh
-
-# uncomment bottom plz
-# exec_always bash /home/blank/.config/polybar/module_shell_scripts/battery_alert.sh
-# exec_always bash /home/blank/.config/polybar/module_shell_scripts/network_info/wifi_wan_check.sh
-# exec_always bash /home/blank/.config/polybar/module_shell_scripts/network_info/eth_wan_check.sh
+exec bash /home/blank/.config/polybar/module_shell_scripts/init_notify.sh
+exec bash /home/blank/.config/polybar/module_shell_scripts/battery_alert.sh
+exec bash /home/blank/.config/polybar/module_shell_scripts/network_info/wifi_wan_check.sh
+exec bash /home/blank/.config/polybar/module_shell_scripts/network_info/eth_wan_check.sh
 

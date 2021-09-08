@@ -1,0 +1,679 @@
+;==========================================================
+;
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/polybar/polybar
+;
+;   The README contains a lot of information
+;
+;==========================================================
+
+
+;==========================================================
+;				BASE CLASSES
+;
+[colors]
+	;background = ${xrdb:color0:#222}
+	bar-background = #222
+	bar-background-alt = #444
+	;foreground = ${xrdb:color7:#222}
+	bar-foreground = #dfdfdf
+	bar-foreground-alt = #555
+	primary = #ffb52a
+	secondary = #e60053
+	alert = #bd2c40
+	module-background = #383838
+	module-background-alt = #585858
+	module-foreground = #00aaff
+	module-foreground-alt = #0094de
+	; module-underline = #0a6cf5
+
+[bar/basebar]
+	height = 34
+	monitor = ${env:MONITOR}
+	width = 100%
+	;offset-x = 1%
+	;offset-y = 1%
+	fixed-center = false
+
+	background = ${colors.bar-background}
+	foreground = ${colors.bar-foreground}
+	; background = #00
+	; foreground = #0000
+
+	padding-left = 1
+	padding-right = 1
+
+	module-margin-left = 0
+	module-margin-right = 2
+
+	font-0 = fixed:pixelsize=10;1
+	font-1 = unifont:fontformat=truetype:size=10:antialias=false;0
+	font-2 = siji:pixelsize=10;1
+	font-3 = RobotoMono Nerd Font:pixelsize=10;1
+	font-4 = LiberationMono:ontformat=truetype:size=12:antialias=false;0
+	font-5 = Noto Sans:size=10
+	font-6 = Noto Sans Nerd Font:size=13
+	font-7 = Font-Awesome 5:size=14
+
+	;modules-left = bspwm i3
+	;modules-left = bspwm
+
+	;wm-restack = bspwm
+	;wm-restack = i3
+
+	;override-redirect = true
+
+	;scroll-up = bspwm-desknext
+	;scroll-down = bspwm-deskprev
+
+	; scroll-up = i3wm-wsnext
+	; scroll-down = i3wm-wsprev
+
+	line-size = 10
+	line-color = ${colors.bar-background}
+
+[module/music]
+	format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
+	icon-prev = 玲
+	icon-stop = 栗
+	icon-play = 
+	icon-pause = 
+	icon-next = 怜
+	label-song-maxlen = 25
+	label-song-ellipsis = true
+
+[module/network_class]
+
+	type = internal/network
+	interval = 0.1
+
+	format-connected-padding = 0
+	format-connected-overline = ${colors.bar-background}
+	format-connected-underline = ${colors.bar-background}
+	; format-connected-overline = #00
+	; format-connected-underline = #00
+	format-connected-background = ${colors.bar-background-alt}
+	label-connected = %{F#cc4400}%upspeed%%{T7}%{F-}%{F#af8a4a}%{T-}%downspeed%%{F-}
+	
+	ramp-signal-foreground = ${colors.bar-foreground-alt}
+
+	enable-ipc = true
+
+	accumulate-stats = true
+
+[module/audio]
+	; type = internal/alsa
+
+	format-volume = <label-volume> <ramp-volume>
+	label-volume = VOL
+	label-volume-foreground = ${root.foreground}
+
+	ramp-headphones-0 = ""
+	ramp-headphones-1 = ""
+
+	format-muted-prefix = ""
+	format-volume-prefix = " "
+	format-muted-foreground = #ff0000
+	# format-muted-foreground = ${colors.bar-foreground-alt}
+	##  label-muted = ""
+	# label-muted = sound muted
+
+	bar-volume-width = 10
+	bar-volume-foreground-0 = #55aa55
+	bar-volume-foreground-1 = #55aa55
+	bar-volume-foreground-2 = #55aa55
+	bar-volume-foreground-3 = #55aa55
+	bar-volume-foreground-4 = #55aa55
+	bar-volume-foreground-5 = #f5a70a
+	bar-volume-foreground-6 = #ff5555
+	bar-volume-gradient = true
+	bar-volume-indicator = |
+	bar-volume-indicator-font = 2
+	bar-volume-fill = ─
+	bar-volume-fill-font = 2
+	bar-volume-empty = ─
+	bar-volume-empty-font = 2
+	bar-volume-empty-foreground = ${colors.bar-foreground-alt}
+
+
+;==========================================================
+;				IMPLEMENTATION SECTION
+
+[bar/topbar]
+
+	overline-size = 4
+	underline-size = 6
+
+	; modules-center =
+	inherit = bar/basebar
+	; modules-right = mpd xbacklight alsa pulseaudio temperature powermenu
+ 	modules-left = distro_label xkeyboard
+	modules-right = pulseaudio cmus wifi usbtether eth date time battery
+
+	cursor-click = pointer
+	cursor-scroll = ns-resize
+	font-0 = ${self.font-2}
+	; font-0 = ${self.font-0}
+	; font-1 = ${self.font-1}
+	; font-2 = ${self.font-2}
+
+[bar/bottombar]
+	inherit = bar/basebar
+	bottom = true
+	module-margin-right = 2
+	modules-right = cdrom_eject diskspace cpu RAM swap
+	modules-left = i3_ws
+
+	overline-size = 4
+	underline-size = 6
+	cursor-click = pointer
+	cursor-scroll = ns-resize
+	font-0 = ${self.font-2}
+	; font-0 = ${self.font-0}
+	; font-1 = ${self.font-1}
+	; font-2 = ${self.font-2}
+
+[module/cdrom_eject]
+	type = internal/fs
+	mount-0 = /dev/sr0
+	# content = %{A1:eject /dev/cdrom:}%{T1} ⏏ %{T-}%{A}
+	format-mounted = %{A1:/home/blank/.config/polybar/module_shell_scripts/./eject_cdrom.sh:}%{T1}%{B#aaff00}%{F#0055ff}  %{T-}%{F-}%{B-}%{F#550000}%{B#3cb300}U:%used% | T:%total% %{F-}%{B-}%{A}
+	format-unmounted = %{A1:/home/blank/.config/polybar/module_shell_scripts/./eject_cdrom.sh:}%{T7}%{B#55ff00}%{F#0055ff}  %{T-}%{F-}%{B-}%{F#550000}%{B#3cb300} Insert Disc %{F-}%{B-} %{A}
+	content-foreground = #0055ff
+	content-background = #aaff00
+	format-unmounted-underline = ${colors.bar-background}
+	format-unmounted-overline = ${colors.bar-background}
+	format-mounted-underline = ${colors.bar-background}
+	format-mounted-overline = ${colors.bar-background}
+
+[module/diskspace]
+	type = internal/fs
+	interval = 0.1
+	mount-0 = /
+	; mount-1 = /boot
+
+	; label-mounted = %{B#0856ff} U: %used% %{T7}%{F#ffffff}%{F-}%{T-}F: %free% %{T7}%{F#ffffff}%{F-}%{T-}T: %total%%{T7}%{F#ffffff} %{F-}%{T-}%{B-}
+	label-mounted = %{B#0856ff} F: %free% %{T7}%{F#ffffff}%{F-}%{T-}T: %total%%{T7}%{F#ffffff} %{F-}%{T-}%{B-}
+
+	; format-mounted = %{B#ff8c8c}%{F#383838}  %{F-}%{T7}%{F#212121} /%{F-} %{B-}%{T-}<label-mounted>
+	format-mounted = %{A1:/home/blank/.config/polybar/module_shell_scripts/./disks_info.sh:}%{A3:/home/blank/.config/polybar/module_shell_scripts/./available_disks.sh:}%{B#ff8c8c}%{F#383838}%{F-}%{T7}%{F#212121}/%{F-} %{B-}%{T-}<label-mounted>%{A}%{A}
+	format-mounted-background = ${colors.bar-foreground-alt}
+	format-mounted-underline = ${colors.bar-background}
+	format-mounted-overline = ${colors.bar-background}
+	; format-mounted-underline = #00
+	; format-mounted-overline = #00
+	; enable-ipc=true
+	; click-left=/home/blank/.config/polybar/module_shell_scripts/./disks_info.sh
+
+[module/cpu]
+	type = internal/cpu
+	overline-size = 5
+	underline-size = 8
+	format-underline = ${colors.bar-background}
+	format-overline = ${colors.bar-background}
+	; format-underline = #00
+	; format-overline = #00
+	; format-background = ${colors.module-background}
+	; format-background = #0055ff
+	interval = 1
+	; format-prefix = 
+	format-prefix-foreground = ${colors.bar-foreground-alt}
+	label = %{T7}%{F#55ff00}%{B#616465}  %{B-}%{F-}%{T-}%{B#a3be8c}%{F#000000} CPU1: %percentage-core1%% %{F-}%{T7}%{F#00aa00}%{F-}%{T-} %{F#000000}CPU2: %percentage-core2%% %{F-}%{T7}%{F#00aa00}%{F-}%{T-} %{F#000000}CPU3: %percentage-core3%% %{F-}%{T7}%{F#00aa00}%{F-}%{T-} %{F#000000}CPU4: %percentage-core4%% %{F-}%{T7}%{F#00aa00}%{F-}%{T-} %{F#000000}T: %percentage%% %{T7}%{F-}%{F#383838} %{F-}%{T-}%{B-}
+	; label = %{F#383838}|%{F-}%{T7}%{F#00aa00}%{F-}%{T-} %{T7}%{F#00aa00}%{F-}%{T-} 1 - %percentage-core1%% %{T7}%{F#00aa00}%{F-}%{T-} 2 - %percentage-core2%% %{T7}%{F#00aa00}%{F-}%{T-} 3 - %percentage-core3%% %{T7}%{F#00aa00}%{F-}%{T-} 4 - %percentage-core4%% %{T7}%{F#00aa00}%{F-}%{T-} T: %percentage%% %{T7}%{F#383838}|%{F-}%{T-}
+
+[module/cmus]
+	inherit = module/music
+	type = custom/script
+	exec = bash "/home/blank/.config/polybar/module_shell_scripts/cmus.sh"
+	exec-if = pgrep -x cmus
+	interval = 1
+	click-left = cmus-remote --pause
+	click-right = cmus-remote --stop
+	click-middle = killall cmus
+	scroll-up = cmus-remote -n # next
+	scroll-down = cmus-remote -r # prev
+	double-click-left = cmus-remote -k +10 # forward seek
+	double-click-right = cmus-remote -k -10 # backward seek
+	format = %{F#ffaa7f}<label>%{F-} %{B#55aaff}%{T7}%{F#3d3d3d}  %{F-}%{T-}%{B-}
+	format-underline = ${colors.bar-background}
+	format-overline = ${colors.bar-background}
+	; format-underline = #00
+	; format-overline = #00
+	format-background = #00557f
+	label = %output%
+
+
+[module/RAM]
+	type = internal/memory
+	interval = 0.1
+	format-prefix = %{T7}%{F#55aa00}%{B#444}   %{B-}%{T-}%{F-}
+	format-prefix-foreground = ${colors.bar-foreground-alt}
+	format-background = ${colors.module-background}
+	; format-prefix-background = ${colors.module-background}
+	padding = 1
+	label = %{B#555500}  U: %mb_used% %{F-}%{T7}%{F#55aa00}%{F-}%{T-}T: %mb_total%%{T7}%{F#383838}  %{F-}%{T-}%{B-}
+	; label = %{B#555500}  U: %gb_used% %{F-}%{T7}%{F#55aa00}%{F-}%{T-}T: %gb_total%%{T7}%{F#383838}  %{F-}%{T-}%{B-}
+	overline-size = 5
+	underline-size = 8
+	format-underline = ${colors.bar-background}
+	format-overline = ${colors.bar-background}
+	; format-underline = #00
+	; format-overline = #00
+
+
+[module/swap]
+	overline-size = 5
+	underline-size = 8
+	format-underline = ${colors.bar-background}
+	format-overline = ${colors.bar-background}
+	; format-underline = #00
+	; format-overline = #00
+	type = internal/memory
+	interval = 0.1
+	# format-prefix = %{T7} 易%{T-}
+	# format-prefix = %{B#ff7403} %{T7}%{F#000000} %{F-}%{T-}%{B-}
+	format-prefix = %{B#ff7403} %{T7}%{F#323200} %{F-}%{T-}%{B-}
+	# format-prefix-background = ${colors.module-background}
+	# format-prefix-background = #996b30
+	# format-prefix-foreground = #cece00
+	label-background = ${colors.module-background}
+	label = %{B#ff5500} %{F#ffff00} U: %mb_swap_used%%{F-} %{T7}%{F#ffffff}%{F-}%{T-}%{F#ffff00} T: %mb_swap_total%%{F-}%{T7}%{F#383838}  %{F-}%{T-}%{B-}
+	; label = %{B#ff5500} %{F#ffff00} T: %gb_swap_total%%{F-} %{T7}%{F#ffffff}%{F-}%{T-}%{F#ffff00} F: %gb_swap_free%%{F-}%{T7}%{F#383838}  %{F-}%{T-}%{B-}
+
+[module/xwindow]
+	type = internal/xwindow
+	label = %title:0:30:...%
+
+[module/wifi]
+	inherit = module/network_class
+	interface = wlo1 
+	
+	ramp-signal-0 = %{F#ff0000}  %{F}
+	ramp-signal-1 = %{F#ff5500}  %{F}
+	ramp-signal-2 = %{F#e7e700}  %{F}
+	ramp-signal-3 = %{F#4d95ee}  %{F}
+	ramp-signal-4 = %{F#00e100}  %{F}
+
+	format-connected = %{T7}%{F#00e100}%{A3:nmcli device disconnect wlo1:}%{A1:/home/blank/.config/polybar/module_shell_scripts/network_info/./wifi.sh && killall /home/blank/.config/polybar/module_shell_scripts/network_info/wificonn.sh:}%{B#424242}<ramp-signal>%{B-}%{T-}%{B#585858} <label-connected> %{B-}%{A}%{A}
+
+[module/eth]
+	inherit = module/network_class
+	interface = enp4s0
+	format-connected = %{T7}%{F#0081c2}%{A3:/home/blank.config/polybar/module_shell_scripts/./enable_nm.sh:}%{A1:/home/blank/.config/polybar/module_shell_scripts/network_info/./ethernet.sh:}%{A2:sudo systemctl stop NetworkManager && sudo systemctl disable NetworkManager:}  %{F-}%{T-}%{B#585858}  <label-connected> %{B-}%{A}%{A}%{A}
+
+[module/usbtether]
+	inherit = module/network_class
+	interval = 0.1
+	; unknown-as-up = true
+	; interface = enp0s16u2u1
+	; interface = enp01s16u2u3
+	interface = enp0s18u1u1u1
+	; label-connected = %local_ip% %{F#cc4400}%upspeed% %{F}%{F#af8a4a} %downspeed%%{F}
+	label-connected = %{F#cc4400}%upspeed% %{T7}%{F-}%{F#af8a4a}%{T-} %downspeed%%{F-}
+	format-connected = %{F#aaffff}%{T7}%{B#444444} 禍%{B-}%{T-}%{F-}%{B#585858}  <label-connected> %{B-}
+
+
+[module/xkeyboard]
+	type = internal/xkeyboard
+
+	format-prefix = "     "
+	format-prefix-background = ${colors.module-background}
+	format-prefix-foreground = #55ffff
+	; format-prefix-underline = ${colors.secondary}
+
+	label-indicator-on = %name%
+	
+	label-layout = %icon%
+	format-underline = ${colors.bar-background}
+	format-overline = ${colors.bar-background}
+	label-indicator-on-capslock = %{B#383838} %{B-}
+	label-indicator-on-numlock = %{B#383838}  %{B-}
+
+	label-indicator-padding = 10
+	label-indicator-margin = 10
+	label-indicator-background = #ff0000
+	label-indicator-foreground = #55ffff
+	label-indicator-underline = ${colors.bar-background}
+	
+	format = <label-indicator> <label-layout>
+
+[module/bspwm]
+	type = internal/bspwm
+
+	label-focused = %index%
+	label-focused-background = ${colors.bar-background-alt}
+	; label-focused-underline= ${colors.primary}
+	label-focused-padding = 2
+
+	label-occupied = %index%
+	label-occupied-padding = 2
+
+	label-urgent = %index%!
+	label-urgent-background = ${colors.alert}
+	label-urgent-padding = 2
+
+	label-empty = %index%
+	label-empty-foreground = ${colors.bar-foreground-alt}
+	label-empty-padding = 2
+
+	; Separator in between workspaces
+	; label-separator = |
+
+
+[module/i3_ws]
+	type = internal/i3
+	format = %{T7}<label-state> <label-mode> %{T-}
+	index-sort = true
+	;wrapping-scroll = true
+	
+	; Only show workspaces on the same output as the bar
+	pin-workspaces = true
+
+	label-mode-padding = 1
+	label-mode-foreground = #000000
+	label-mode-background = #99741f
+	label-mode-underline = ${colors.bar-background}
+	label-mode-overline = ${colors.bar-background}
+	label-mode = %mode%
+ 
+	; focused = Active workspace on focused monitor
+	label-focused = %index%  
+	label-focused-background = #ffb52a
+	label-focused-foreground = #550000
+	label-focused-overline = ${colors.bar-background}
+	label-focused-underline = ${colors.bar-background}
+	; label-focused-overline = #00
+	; label-focused-underline = #00
+	label-focused-padding = 2  
+  
+	; unfocused = Inactive workspace on any monitor
+	label-unfocused = %index%
+	label-unfocused-overline = ${colors.bar-background}
+	label-unfocused-underline = ${colors.bar-background}
+	; label-unfocused-overline = #00
+	; label-unfocused-underline = #00
+	label-unfocused-background = ${colors.module-background-alt}
+	label-unfocused-padding = 2
+
+	; visible = Active workspace on unfocused monitor
+	label-visible = %index%
+	label-visible-background = #aaffff
+	label-visible-foreground = #000000
+	label-visible-overline = ${colors.bar-background}
+	label-visible-underline = ${colors.bar-background}
+	; label-visible-overline = #00
+	; label-visible-underline = #00
+	label-visible-padding = ${self.label-focused-padding}
+
+	; urgent = Workspace with urgency hint set
+	label-urgent = %index%
+	label-urgent-overline = ${colors.bar-background}
+	label-urgent-underline = ${colors.bar-background}
+	; label-urgent-overline = #00
+	; label-urgent-underline = #00
+	label-urgent-background = ${colors.alert}
+	label-urgent-padding = 2
+
+	; Separator in between workspaces
+	; label-separator = |
+
+
+[module/xbacklight]
+	type = internal/xbacklight
+
+	format = <label> <bar>
+	label = BL
+
+	bar-width = 10
+	bar-indicator = |
+	bar-indicator-foreground = #fff
+	bar-indicator-font = 2
+	bar-fill = ─
+	bar-fill-font = 2
+	bar-fill-foreground = #9f78e1
+	bar-empty = ─
+	bar-empty-font = 2
+	bar-empty-foreground = ${colors.bar-foreground-alt}
+
+[module/backlight-acpi]
+	inherit = module/xbacklight
+	type = internal/backlight
+	; card = intel_backlight
+	card = intel_backlight
+
+
+[module/date]
+	type = internal/date
+	interval = 1
+date = %{A1:dunstify -u low "$(cal | sed 's/.$/& /g;s/^./ &/g')":}%{B#01ca62}%{F#000000} %Y/%m%{F-}%{F#0000ff}-%{F-}%{F#aa0000}%b%{F-}%{F#000000}/%d%{F-}%{F#0000ff}-%{F-}%{F#aa0000}%a %{F-}%{B-}%{A}
+
+	format-prefix = %{A1:dunstify -u low "$(cal | sed 's/.$/& /g;s/^./ &/g')":}%{T7} %{F#0000ff}%{F-} %{T-}%{A}
+	format-prefix-background = #00ff7f
+	format-underline = ${colors.bar-background}
+	format-overline = ${colors.bar-background}
+	; format-underline = #00
+	; format-overline = #00
+
+	label = %date%
+	; label = %{T7}%date%%{T-}
+	; label-background = ${colors.module-background-alt}
+	label-padding = 0
+	label-layout-background = #bc99ed
+	label-layout-foreground = #000
+
+[module/time]
+	type = internal/date
+	interval = 1
+
+	time = %r
+	
+	format-prefix = %{T7}%{B#00aaff}%{F#000000}  %{F-}%{B-}%{T-}%{F#383838}%{F}
+	; format-prefix = %{T7}%{B#00aaff}%{F#aadf54}  %{F-}%{B-}%{T-}%{F#383838}%{F}
+	format-prefix-foreground = ${colors.module-foreground}
+	format-underline = ${colors.bar-background}
+	format-overline = ${colors.bar-background}
+	; format-underline = #00
+	; format-overline = #00
+
+	format-background = #0072ab
+	; format-background = ${colors.module-background-alt}
+	format-padding = 0
+	label-padding = 2
+	
+	label = %{F-}%time%
+
+	format = <label>
+
+[module/pulseaudio]
+	type = internal/pulseaudio
+
+	inherit = module/audio
+
+	format-volume = <label-volume> <bar-volume>
+	label-volume = %percentage%%
+	label-volume-foreground = ${root.foreground}
+
+	# label-muted = ""
+	# label-muted-foreground = #666
+
+
+[module/alsa]
+	type = internal/alsa
+
+	inherit = module/audio
+
+	format-volume = <label-volume> <bar-volume>
+	label-volume = VOL
+	label-volume-foreground = ${root.foreground}
+
+	format-muted-prefix = " "
+	format-muted-foreground = ${colors.bar-foreground-alt}
+	label-muted = sound muted
+
+
+[module/battery]
+	#reference
+	; animation-charging-foreground = ${colors.bar-foreground-alt}
+	; format-discharging-underline = ${self.format-charging-underline}
+	; animation-discharging-foreground = ${colors.bar-foreground-alt}
+
+	type = internal/battery
+	battery = BAT1
+	adapter = ACAD
+
+	poll-interval = 1
+
+	; battery full
+	full-at = 100
+	label-full = 100%
+	format-full-prefix-foreground = ${colors.module-background}
+	format-full-underline = ${colors.bar-background}
+	format-full-overline = ${colors.bar-background}
+	; format-full-underline = #00
+	; format-full-overline = #00
+	format-full-background = ${colors.module-background-alt}
+	format-full-foreground = ${colors.primary}
+	format-full-padding = 1
+	format-full = <label-full> %{T7}%{B#b57e4c}%{B-}%{T-}
+
+	
+	; charging
+	animation-charging-foreground = #107cff
+	animation-charging-size = 15
+	animation-charging-0 = 
+	animation-charging-1 = 
+	animation-charging-2 = 
+	animation-charging-3 = 
+	animation-charging-4 = 
+	animation-charging-5 = 
+	animation-charging-6 = 
+	label-charging = %percentage%% at %consumption% watts
+	format-charging = %{F#0a51a1}<label-charging> %{F-}%{T7}%{F#00ff00}%{B#d5b04b} <animation-charging> %{B-}%{F-}%{T-}
+	; format-charging = <label-charging> %{T7}%{F#00ff00}%{B#ffd45a} <animation-charging> %{B-}%{F-}%{T-}
+	format-charging-overline = ${colors.bar-background}
+	format-charging-underline = ${colors.bar-background}
+	; format-charging-overline = #00
+	; format-charging-underline = #00
+	format-charging-padding = 2
+	animation-charging-framerate = 750
+	format-charging-background = #ffd45a
+	; format-charging-background = ${colors.module-background-alt}
+	
+
+	; discharging
+	ramp-capacity-0 = 
+	ramp-capacity-0-foreground = #ff0000
+
+	ramp-capacity-1 = 
+	ramp-capacity-1-foreground = #ff0000
+	
+	ramp-capacity-2 = 
+	ramp-capacity-2-foreground = #ff8800
+	
+	ramp-capacity-3 = 
+	ramp-capacity-3-foreground = #ff8800
+	
+	ramp-capacity-4 = 
+	ramp-capacity-4-foreground = #ff8800
+	
+	ramp-capacity-5 = 
+	ramp-capacity-5-foreground = #f7f700
+	
+	ramp-capacity-6 = 
+	ramp-capacity-6-foreground = #f7f700
+	
+	ramp-capacity-7 = 
+	ramp-capacity-7-foreground = #f7f700
+	
+	ramp-capacity-8 = 
+	ramp-capacity-8-foreground = #00ff00
+	
+	ramp-capacity-9 = 
+	ramp-capacity-9-foreground = #00ff00
+
+
+	label-discharging = %percentage%%
+	format-discharging = %{T7}%{B#aadf54}<ramp-capacity> %{B-}%{T-}%{B#78b867}%{F#555} %{F-}<label-discharging>%{F#555} %{F-}%{B-}
+	format-discharging-underline = ${colors.bar-background}
+	format-discharging-overline = ${colors.bar-background}
+	; format-discharging-underline = #00
+	; format-discharging-overline = #00
+	; format-discharging-background = ${colors.bar-background-alt}
+	format-discharging-padding = 0
+ 
+[module/temperature]
+	type = internal/temperature
+	thermal-zone = 0
+	warn-temperature = 60
+
+	format = <ramp> <label>
+	; format-underline = #f50a4d
+	format-warn = <ramp> <label-warn>
+	; format-warn-underline = ${self.format-underline}
+
+	label = %temperature-c%
+	label-warn = %temperature-c%
+	label-warn-foreground = ${colors.secondary}
+
+	ramp-0 = 
+	ramp-1 = 
+	ramp-2 = 
+	ramp-foreground = ${colors.bar-foreground-alt}
+
+[module/powermenu]
+	type = custom/menu
+
+	expand-right = true
+
+	format-spacing = 1
+
+	label-open = 襤
+	label-open-foreground = ${colors.secondary}
+	label-close = ﰸ cancel
+	label-close-foreground = ${colors.secondary}
+	label-separator = |
+	label-separator-foreground = ${colors.bar-foreground-alt}
+
+	menu-0-0 = reboot
+	menu-0-0-exec = menu-open-1
+	menu-0-1 = power off
+	menu-0-1-exec = menu-open-2
+
+	menu-1-0 = cancel
+	menu-1-0-exec = menu-open-0
+	menu-1-1 = reboot
+	menu-1-1-exec = sudo reboot
+
+	menu-2-0 = power off
+	menu-2-0-exec = sudo poweroff
+	menu-2-1 = cancel
+	menu-2-1-exec = menu-open-0
+
+[settings]
+	screenchange-reload = true
+	;compositing-background = xor
+	;compositing-background = screen
+	compositing-foreground = source
+	;compositing-border = over
+	pseudo-transparency = true
+
+[module/distro_label]
+	type = custom/text
+	content = %{A1:rofi -config "/home/blank/.config/rofi/rofi_config.rasi" -show drun:}%{T7}%{T-}%{A}
+	content-foreground = #0055ff
+
+[global/wm]
+	margin-top = 5
+	margin-bottom = 5
+
+	;vim:ft=dosini
+
